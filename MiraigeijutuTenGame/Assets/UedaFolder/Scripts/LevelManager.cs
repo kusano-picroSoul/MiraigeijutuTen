@@ -12,9 +12,9 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public static LevelManager Instance => instance;
     //現在のすべてのキャラクターリスト
-    public List<PlayerStatus> AllCharactorList = new List<PlayerStatus>();
+    public static List<PlayerStatus> AllCharactorList = new List<PlayerStatus>();
     //現在の選択されているキャラクター
-    public List<PlayerStatus> HomeCharactorList = new List<PlayerStatus>();
+    public static List<PlayerStatus> HomeCharactorList = new List<PlayerStatus>();
     /// <summary>
     /// ビットフラグ型のフードリスト(enum)
     /// </summary>
@@ -40,7 +40,7 @@ public class LevelManager : MonoBehaviour
     }
     void Update()
     {
-        //LevelManager.Instance.AllCharactorList[0].gameObject.SetActive(false);
+        LevelManager.AllCharactorList[0].gameObject.SetActive(false);
     }
     [Flags]
     public enum FoodFlags
