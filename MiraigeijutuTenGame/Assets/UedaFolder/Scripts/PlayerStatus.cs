@@ -4,10 +4,30 @@ using UnityEngine;
 
 public class PlayerStatus : MonoBehaviour
 {
-    public int Hungry = 50;
-    public int Happy = 50;
-    public int Smart = 50;
-    public int Health = 50;
+    private int _hungry = 50;
+    private int _happy = 50;
+    private int _smart = 50;
+    private int _helth = 50;
+    public int Hungry
+    {
+        set { _hungry = Mathf.Clamp(value,0,100); }
+        get { return _hungry; }
+    }
+    public int Happy
+    {
+        set {_happy = Mathf.Clamp(value,0,100);}
+        get { return _happy; } 
+    }
+    public int Smart
+    {
+        set { _smart = Mathf.Clamp(value, 0, 100); }
+        get { return _smart; }
+    }
+    public int Health
+    {
+        set { _helth = Mathf.Clamp(value, 0, 100); }
+        get { return _helth; }
+    }
     public Condition PlayerCondition = Condition.Normal;
 
     private PlayerAnimation _playerAnimation;

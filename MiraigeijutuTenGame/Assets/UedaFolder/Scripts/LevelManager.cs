@@ -40,7 +40,7 @@ public class LevelManager : MonoBehaviour
     }
     void Update()
     {
-        LevelManager.AllCharactorList[0].gameObject.SetActive(false);
+        //LevelManager.AllCharactorList[0].gameObject.SetActive(false);
     }
     [Flags]
     public enum FoodFlags
