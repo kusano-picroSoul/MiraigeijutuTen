@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 7284693193786647370}
   - component: {fileID: 1828996081541584875}
   - component: {fileID: 8277470763925662827}
+  - component: {fileID: 6572009295359516069}
   m_Layer: 0
   m_Name: Player0
   m_TagString: Untagged
@@ -228,11 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68a69728d028df94fb5fd20d855f914e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hungry: 50
-  Happy: 50
-  Smart: 50
-  Health: 50
-  PlayerCondition: 0
+  PlayerCondition:
+    value: 0
 --- !u!114 &8277470763925662827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +253,18 @@ MonoBehaviour:
   - {fileID: 6511018671107876872}
   - {fileID: 5569013229025316635}
   - {fileID: 3197833731485980692}
+--- !u!114 &6572009295359516069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890349504905140164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5f57a1c3062774fb51d8f9163e11f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1458329522241820090
 GameObject:
   m_ObjectHideFlags: 0

@@ -29,7 +29,7 @@ public class LevelManager : MonoBehaviour
     {
         
         int i=0;
-        while(Resources.Load<PlayerStatus>("PlayerPrefabs/Player" + i) ? true : false)
+        while(Resources.Load<GameObject>("PlayerPrefabs/Player" + i) ? true : false)
         {
             AllCharactorList.Add(Instantiate(
                 Resources.Load<PlayerStatus>("PlayerPrefabs/Player" + i)
@@ -42,6 +42,11 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         //LevelManager.AllCharactorList[0].gameObject.SetActive(false);
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            AllCharactorList[0].Happy += 10;
+            Debug.Log(AllCharactorList[0].Happy);
+        }
     }
 
     void SelectRandomPlayer()
@@ -56,7 +61,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-
+            //ランダムで重複なしの5人を選択
         }
     }
 
