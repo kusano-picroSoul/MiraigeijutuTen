@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using TMPro;
+using System.Threading;
 
 public class LevelManager : MonoBehaviour
 {
@@ -42,6 +43,24 @@ public class LevelManager : MonoBehaviour
     {
         //LevelManager.AllCharactorList[0].gameObject.SetActive(false);
     }
+
+    void SelectRandomPlayer()
+    {
+        HomeCharactorList.Clear();
+        if(AllCharactorList.Count < 5)
+        {
+            for(int i = 0; i < AllCharactorList.Count; i++)
+            {
+                HomeCharactorList.Add(HomeCharactorList[i]);
+            }
+        }
+        else
+        {
+
+        }
+    }
+
+
     [Flags]
     public enum FoodFlags
     {
