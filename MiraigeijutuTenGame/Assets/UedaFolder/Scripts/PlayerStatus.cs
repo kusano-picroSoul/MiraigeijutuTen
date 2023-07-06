@@ -45,7 +45,7 @@ public class PlayerStatus :MonoBehaviour
     ////プレイヤーコンディションの管理
     public void PlayerConditionUpdate()
     {
-        Debug.Log("呼ばれた");
+        //Debug.Log("呼ばれた");
         if (Health <= 0 )
         {
             PlayerCondition.Value = Condition.Tired;

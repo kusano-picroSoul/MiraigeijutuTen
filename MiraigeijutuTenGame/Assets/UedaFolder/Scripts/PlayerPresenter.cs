@@ -31,7 +31,7 @@ public class PlayerPresenter : MonoBehaviour
     //プレイヤーのコンディションに応じた動きとアニメーション
     public void PlayerConditionMoving(Condition playerCondition)
     {
-        Debug.Log("呼ばれた2");
+        //Debug.Log("呼ばれた2");
         if (playerCondition == Condition.Normal)
         {
             _playerAnimation.NormalSprite();
