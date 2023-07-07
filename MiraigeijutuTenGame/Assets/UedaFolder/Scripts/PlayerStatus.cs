@@ -1,112 +1,76 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using Cysharp.Threading.Tasks;
+using UnityEngine.Diagnostics;
 
-public class PlayerStatus : MonoBehaviour
+public class Status
 {
-    private int _hungry = 50;
-    private int _happy = 50;
-    private int _smart = 50;
-    private int _helth = 50;
+    public ReactiveProperty<int> _hungry = new(50);
+    public ReactiveProperty<int> _happy = new(50);
+    public ReactiveProperty<int> _smart = new(50);
+    public ReactiveProperty<int> _helth = new(50);
+}
+public class PlayerStatus :MonoBehaviour
+{
+    public Status status = new();
+    //クラスをインスタンス化したものは検知することが出来ない。
+    public ReactiveProperty<Condition> PlayerCondition = new ReactiveProperty<Condition>(Condition.Normal);
     public int Hungry
     {
-        set { _hungry = Mathf.Clamp(value,0,100); }
-        get { return _hungry; }
+        set { status._hungry.Value = Mathf.Clamp(value,0,100); }
+        get 
+        { 
+            return status._hungry.Value; 
+        }
     }
     public int Happy
     {
-        set {_happy = Mathf.Clamp(value,0,100);}
-        get { return _happy; } 
+        set { status._happy.Value = Mathf.Clamp(value,0,100);}
+        get { return status._happy.Value; } 
     }
     public int Smart
     {
-        set { _smart = Mathf.Clamp(value, 0, 100); }
-        get { return _smart; }
+        set { status._smart.Value = Mathf.Clamp(value, 0, 100); }
+        get { return status._smart.Value; }
     }
     public int Health
     {
-        set { _helth = Mathf.Clamp(value, 0, 100); }
-        get { return _helth; }
+        set { status._helth.Value = Mathf.Clamp(value, 0, 100); }
+        get { return status._helth.Value; }
     }
-    public Condition PlayerCondition = Condition.Normal;
-
-    private PlayerAnimation _playerAnimation;
-    // Start is called before the first frame update
-    void Start()
-    {
-        _playerAnimation = GetComponent<PlayerAnimation>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        PlayerConditionUpdate();
-        PlayerConditionMoving();
-    }
+    
 
     ////プレイヤーコンディションの管理
     public void PlayerConditionUpdate()
     {
+        //Debug.Log("呼ばれた");
         if (Health <= 0 )
         {
-            Hungry = 0;
-            PlayerCondition = Condition.Tired;
+            PlayerCondition.Value = Condition.Tired;
         }
         else if (Hungry <= 0)
         {
-            PlayerCondition = Condition.Hungry;
+            PlayerCondition.Value = Condition.Hungry;
         }
         else if (Smart <= 0)
         {
-            PlayerCondition = Condition.Stupid;
+            PlayerCondition.Value = Condition.Stupid;
         }
         else if (Happy <= 0)
         {
-            PlayerCondition = Condition.Angry;
+            PlayerCondition.Value = Condition.Angry;
         }
         else if (Happy >= 80)
         {
-            PlayerCondition = Condition.Happy;
+            PlayerCondition.Value = Condition.Happy;
         }
         else
         {
-            PlayerCondition = Condition.Normal;
+            PlayerCondition.Value = Condition.Normal;
         }
     }
-    //プレイヤーのコンディションに応じた動きとアニメーション
-    public void PlayerConditionMoving()
-    {
-        if (PlayerCondition == Condition.Normal)
-        {
-            _playerAnimation.NormalSprite();
-            //ランダムウォーク(DoTween)
-            //他のプレイヤーに近づいて話しかける
 
-        }
-        else if (PlayerCondition == Condition.Tired)
-        {
-            _playerAnimation.TiredSprite();
-            //座り込むアニメーション
-        }
-        else if (PlayerCondition == Condition.Hungry)
-        {
-            _playerAnimation.HungrySprite();
-            //ランダムでうなだれるアニメーション
-        }
-        else if (PlayerCondition == Condition.Stupid)
-        {
-            _playerAnimation.StupidSprite();
-            //顔があほになるアニメーション
-        }
-        else if (PlayerCondition == Condition.Angry)
-        {
-            _playerAnimation.AngrySprite();
-            //怒りのアニメーション
-        }
-        else if(PlayerCondition == Condition.Happy)
-        {
-            _playerAnimation.HappySprite();
-            //Happyのアニメーション
-        }
-    }
+
 }
