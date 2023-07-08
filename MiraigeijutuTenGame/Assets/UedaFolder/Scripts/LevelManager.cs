@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using TMPro;
+using System.Threading;
 
 public class LevelManager : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class LevelManager : MonoBehaviour
     {
         
         int i=0;
-        while(Resources.Load<PlayerStatus>("PlayerPrefabs/Player" + i) ? true : false)
+        while(Resources.Load<GameObject>("PlayerPrefabs/Player" + i) ? true : false)
         {
             AllCharactorList.Add(Instantiate(
                 Resources.Load<PlayerStatus>("PlayerPrefabs/Player" + i)
@@ -41,7 +42,46 @@ public class LevelManager : MonoBehaviour
     void Update()
     {
         //LevelManager.AllCharactorList[0].gameObject.SetActive(false);
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            AllCharactorList[0].Happy += 10;
+            Debug.Log(AllCharactorList[0].Happy);
+        }
     }
+    private List<int> randomIndex = new();
+    void SelectRandomPlayer()
+    {
+        HomeCharactorList.Clear();
+        if(AllCharactorList.Count < 5)
+        {
+            for (int i = 0; i < AllCharactorList.Count; i++)
+            {
+                HomeCharactorList.Add(HomeCharactorList[i]);
+            }
+        }
+        else
+        {
+            //ランダムで重複なしの5人を選択
+            for (int i = 0; i < 5; i++)
+            {
+                if(randomIndex.Count == 0)
+                {
+                    for (int j = 0; i < AllCharactorList.Count; i++)
+                    {
+                        randomIndex.Add(j);
+                    }
+                }
+                else
+                {
+                    int rand = UnityEngine.Random.Range(0, randomIndex.Count);
+                    randomIndex.Remove(rand);
+                    HomeCharactorList.Add(AllCharactorList[rand]);
+                }
+            }
+            
+        }
+    }
+   
     [Flags]
     public enum FoodFlags
     {
