@@ -11,6 +11,7 @@ public class Status
     public ReactiveProperty<int> _happy = new(50);
     public ReactiveProperty<int> _smart = new(50);
     public ReactiveProperty<int> _helth = new(50);
+    public ReactiveProperty<int> _familiarity = new(50);
 }
 public class PlayerStatus :MonoBehaviour
 {
@@ -40,7 +41,11 @@ public class PlayerStatus :MonoBehaviour
         set { status._helth.Value = Mathf.Clamp(value, 0, 100); }
         get { return status._helth.Value; }
     }
-    
+    public int Familiarity
+    {
+        set { status._familiarity.Value = Mathf.Clamp(value, 0, 100); }
+        get { return status._familiarity.Value; }
+    }
 
     ////プレイヤーコンディションの管理
     public void PlayerConditionUpdate()

@@ -74,8 +74,8 @@ public class PlayerAnimation : MonoBehaviour
     /// <summary>
     /// プレイヤーの動き、アニメーション
     /// </summary>
-    [SerializeField] float _moveRange;
-    [SerializeField] float _rotateDuration;
+    float _moveRange = 2f;
+    float _rotateDuration = 0.5f;
     private void Start()
     {
         MoveAnimation();
@@ -86,14 +86,14 @@ public class PlayerAnimation : MonoBehaviour
         {
             await RandomWalk();
             await UniTask.Delay(3000);
-            print("呼ばれた");
+            //print("呼ばれた");
         }
     }
     public async UniTask RandomWalk()
     {
         float moveTime = 3f;
         Vector3 randomPosition = new Vector3(Random.Range(-_moveRange, _moveRange), Random.Range(-_moveRange, _moveRange), 0);
-        print($"呼ばれた2{randomPosition}");
+        //print($"呼ばれた2{randomPosition}");
         transform.DOMove(randomPosition, moveTime);
         WalkingAnimation(moveTime);
         await UniTask.Delay((int)( moveTime* 1000));
@@ -124,7 +124,7 @@ public class PlayerAnimation : MonoBehaviour
                 transform.DOLocalRotate(new Vector3(0, 0, 0), _rotateDuration);
                 break;
             }
-            print ("呼ばれた3");
+            // print ("呼ばれた3");
         }
     }
 
