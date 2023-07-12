@@ -75,6 +75,7 @@ public class PlayerAnimation : MonoBehaviour
     /// プレイヤーの動き、アニメーション
     /// </summary>
     float _moveRange = 2f;
+
     float _rotateDuration = 0.5f;
     private void Start()
     {
@@ -84,22 +85,26 @@ public class PlayerAnimation : MonoBehaviour
     {
         while (true)
         {
+            
             await RandomWalk();
-            await UniTask.Delay(3000);
-            //print("呼ばれた");
+            await UniTask.Delay((int)Random.Range(3f, 10f) * 1000);
+            //print("MoveAnimation");
         }
     }
     public async UniTask RandomWalk()
     {
         float moveTime = 3f;
-        Vector3 randomPosition = new Vector3(Random.Range(-_moveRange, _moveRange), Random.Range(-_moveRange, _moveRange), 0);
-        //print($"呼ばれた2{randomPosition}");
+        Vector3 randomPosition = new Vector3(Random.Range(-_moveRange, _moveRange), Random.Range(-0.5f, _moveRange), 0);
+        float animationRatio =  (randomPosition - transform.position).sqrMagnitude / (2 * (_moveRange * _moveRange)) ;
+
+        //print($"_moveRange{_moveRange * _moveRange} : randomPosition.sqrMagnitude {randomPosition.sqrMagnitude} ");
+        LevelManager.Instance.ChangeSortingLayer();
         transform.DOMove(randomPosition, moveTime);
-        WalkingAnimation(moveTime);
+        WalkingAnimation(moveTime , animationRatio);
         await UniTask.Delay((int)( moveTime* 1000));
         return;
     }
-    public async void WalkingAnimation(float moveTime)
+    public async void WalkingAnimation(float moveTime , float animationRatio)
     {
         float startTime = Time.time;
         int Count = Random.Range(0,2);
@@ -109,12 +114,12 @@ public class PlayerAnimation : MonoBehaviour
             {
                 if(Count % 2 == 0)
                 {
-                    transform.DOLocalRotate(new Vector3(0, 0, 10), _rotateDuration);
+                    transform.DOLocalRotate(new Vector3(0, 0, 10) * animationRatio, _rotateDuration);
                     await UniTask.Delay((int)(_rotateDuration * 1000));
                 }
                 else
                 {
-                    transform.DOLocalRotate(new Vector3(0, 0, -10), _rotateDuration);
+                    transform.DOLocalRotate(new Vector3(0, 0, -10) * animationRatio, _rotateDuration);
                     await UniTask.Delay((int)(_rotateDuration * 1000));
                 }
                 Count ++ ;
@@ -124,7 +129,7 @@ public class PlayerAnimation : MonoBehaviour
                 transform.DOLocalRotate(new Vector3(0, 0, 0), _rotateDuration);
                 break;
             }
-            // print ("呼ばれた3");
+            //print($"WalkingAnimation{animationRatio}");
         }
     }
 
