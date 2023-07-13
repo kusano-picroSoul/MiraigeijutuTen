@@ -6,6 +6,7 @@ using TMPro;
 using System.Threading;
 using UnityEngine.UIElements;
 using System.Linq;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class LevelManager : MonoBehaviour
 {
@@ -16,8 +17,12 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance => instance;
     //現在のすべてのキャラクターリスト
     public static List<PlayerStatus> AllCharactorList = new List<PlayerStatus>();
+
+    private const int MAX_HOME_CHARACTOR = 5;
     //現在の選択されているキャラクター
     public static List<PlayerStatus> HomeCharactorList = new List<PlayerStatus>();
+    //キャラクター表示順番を管理するリスト
+    public List<SortOrderClass> SortOrderList = new List<SortOrderClass>();
     /// <summary>
     /// ビットフラグ型のフードリスト(enum)
     /// </summary>
@@ -35,6 +40,7 @@ public class LevelManager : MonoBehaviour
         NutoritionFood = 1 << 8,
     }
     public static FoodFlags BoolFoodList;
+    
     // Start is called before the first frame update
     void Awake()
     {
@@ -47,8 +53,9 @@ public class LevelManager : MonoBehaviour
         {
             var obj = Instantiate(
                 Resources.Load<PlayerStatus>("PlayerPrefabs/Player" + i)
-                , transform.position + new Vector3(i, 0, 0)
-                , Quaternion.identity);
+                , transform.position
+                , Quaternion.identity
+                ,this.transform);
             obj.gameObject.SetActive(false);
             AllCharactorList.Add(obj);
             i++;
@@ -67,8 +74,11 @@ public class LevelManager : MonoBehaviour
     private List<int> randomIndex = new();
     void SelectRandomPlayer()
     {
-        HomeCharactorList.Clear();
-        if(AllCharactorList.Count <= 5)
+        if(HomeCharactorList.Count > 0) 
+        {
+            ResetHomeCharactors();
+        }
+        if(AllCharactorList.Count <= MAX_HOME_CHARACTOR)
         {
             for (int i = 0; i < AllCharactorList.Count; i++)
             {
@@ -77,7 +87,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < MAX_HOME_CHARACTOR; i++)
             {
                 if(randomIndex.Count == 0)
                 {
@@ -97,54 +107,68 @@ public class LevelManager : MonoBehaviour
 
     void ActiveHomeCharactors()
     {
-        foreach (var obj in HomeCharactorList)
+        for(int i = 0;i < MAX_HOME_CHARACTOR; i++)
         {
-            obj.gameObject.SetActive(true);
+            HomeCharactorList[i].transform.position = new Vector3(i + 3 , 0, 0);
+            HomeCharactorList[i].gameObject.SetActive(true);
         }
         SetCharactorSortingLayer();
     }
-
+    void ResetHomeCharactors()
+    {
+        foreach (var obj in HomeCharactorList)
+        {
+            obj.gameObject.SetActive(false);
+        }
+        SortOrderList.Clear();
+        HomeCharactorList.Clear();
+    }
     /// <summary>
     /// プレイヤーレイヤーの管理。
     /// </summary>
     public class SortOrderClass
     {
-        public int _sortingOrderID = 0;
-        public Transform _transform ;
-        public SortOrderClass(int sortingOrderID, in Transform transform)
+        public GameObject _gameobject ;
+        public Vector3 _nextPosition ;
+        public SortOrderClass(in GameObject obj)
         {
-            _sortingOrderID = sortingOrderID;
-            _transform = transform;
+            _gameobject = obj;
+            _nextPosition = obj.transform.position;
         }
     }
-    public List<SortOrderClass> SortOrderList = new List<SortOrderClass>();
-    private void SetCharactorSortingLayer()
+    public void SetCharactorSortingLayer()
     {
         for (int i = 0; i < HomeCharactorList.Count; i++)
         {
             var SpriteArray = HomeCharactorList[i].GetComponentsInChildren<SpriteRenderer>();
-            SortOrderList.Add(new SortOrderClass(i, HomeCharactorList[i].transform));
+            SortOrderList.Add(new SortOrderClass(HomeCharactorList[i].gameObject));
             foreach (var sprite in SpriteArray)
             {
                 sprite.sortingOrder = i;
             }
         }
     }
-    public void ChangeSortingLayer()
+    public void ChangeSortingLayer(string name)
     {
-        print("ChangeSortingLayer");
-        SortOrderList.Sort((a, b) => a._transform.position.y.CompareTo( b._transform.position.y));
+        foreach(var obj in SortOrderList)
+        {
+            if(obj._gameobject.name == name)
+            {
+                obj._nextPosition = obj._gameobject.GetComponent<PlayerAnimation>().randomPosition;
+            }
+        }
+        //print("ChangeSortingLayer");
+        SortOrderList.Sort((a, b) => a._nextPosition.y.CompareTo( b._nextPosition.y));
         SortOrderList.Reverse();
         for (int i = 0;i < HomeCharactorList.Count; i++)
         {
-            print($"name {HomeCharactorList[i].name} position {SortOrderList[i]._transform.position} order {i}");
-            var SpriteArray = HomeCharactorList[i].GetComponentsInChildren<SpriteRenderer>();
+            //print($"name {SortOrderList[i]._gameobject.name} position {SortOrderList[i]._gameobject.transform.position} order {i}");
+            var SpriteArray = SortOrderList[i]._gameobject.GetComponentsInChildren<SpriteRenderer>();
             foreach (var sprite in SpriteArray)
             {
-                sprite.sortingOrder = SortOrderList[i]._sortingOrderID;
+                sprite.sortingOrder = i;
             }
         }
-       
     }
 
 

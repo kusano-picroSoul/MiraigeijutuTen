@@ -74,8 +74,7 @@ public class PlayerAnimation : MonoBehaviour
     /// <summary>
     /// プレイヤーの動き、アニメーション
     /// </summary>
-    float _moveRange = 2f;
-
+    float _moveRange = 2.5f;
     float _rotateDuration = 0.5f;
     private void Start()
     {
@@ -91,14 +90,15 @@ public class PlayerAnimation : MonoBehaviour
             //print("MoveAnimation");
         }
     }
+    public Vector3 randomPosition;
     public async UniTask RandomWalk()
     {
         float moveTime = 3f;
-        Vector3 randomPosition = new Vector3(Random.Range(-_moveRange, _moveRange), Random.Range(-0.5f, _moveRange), 0);
+        randomPosition = new Vector3(Random.Range(-_moveRange, _moveRange), Random.Range(0, _moveRange), 0);
         float animationRatio =  (randomPosition - transform.position).sqrMagnitude / (2 * (_moveRange * _moveRange)) ;
 
         //print($"_moveRange{_moveRange * _moveRange} : randomPosition.sqrMagnitude {randomPosition.sqrMagnitude} ");
-        LevelManager.Instance.ChangeSortingLayer();
+        LevelManager.Instance.ChangeSortingLayer(gameObject.name);
         transform.DOMove(randomPosition, moveTime);
         WalkingAnimation(moveTime , animationRatio);
         await UniTask.Delay((int)( moveTime* 1000));
@@ -112,14 +112,15 @@ public class PlayerAnimation : MonoBehaviour
         {
             if(Time.time - startTime < moveTime)
             {
+                
                 if(Count % 2 == 0)
                 {
-                    transform.DOLocalRotate(new Vector3(0, 0, 10) * animationRatio, _rotateDuration);
+                    transform.DOLocalRotate(new Vector3(0, 0, Mathf.Clamp(10 * animationRatio,0,10)), _rotateDuration);
                     await UniTask.Delay((int)(_rotateDuration * 1000));
                 }
                 else
                 {
-                    transform.DOLocalRotate(new Vector3(0, 0, -10) * animationRatio, _rotateDuration);
+                    transform.DOLocalRotate(new Vector3(0, 0, Mathf.Clamp(-10 * animationRatio, -10, 0)), _rotateDuration);
                     await UniTask.Delay((int)(_rotateDuration * 1000));
                 }
                 Count ++ ;
