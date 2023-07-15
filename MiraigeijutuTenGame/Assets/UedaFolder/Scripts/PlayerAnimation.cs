@@ -76,15 +76,15 @@ public class PlayerAnimation : MonoBehaviour
     /// </summary>
     float _moveRange = 2.5f;
     float _rotateDuration = 0.5f;
+    bool _isAnimation = true;
     private void Start()
     {
         MoveAnimation();
     }
     private async void MoveAnimation()
     {
-        while (true)
-        {
-            
+        while (_isAnimation)
+        { 
             await RandomWalk();
             await UniTask.Delay((int)Random.Range(3f, 10f) * 1000);
             //print("MoveAnimation");
@@ -108,7 +108,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         float startTime = Time.time;
         int Count = Random.Range(0,2);
-        while(true)
+        while(_isAnimation)
         {
             if(Time.time - startTime < moveTime)
             {
@@ -127,12 +127,29 @@ public class PlayerAnimation : MonoBehaviour
             }
             else
             {
-                transform.DOLocalRotate(new Vector3(0, 0, 0), _rotateDuration);
+                ResetCharactorRotation();
                 break;
             }
             //print($"WalkingAnimation{animationRatio}");
         }
     }
+    public void ResetCharactorRotation()
+    {
+        transform.DOLocalRotate(new Vector3(0, 0, 0), _rotateDuration);
+    }
 
-
+    public void KillDoTween()
+    {
+        transform.DOKill();
+    }
+    public void OnMouseDown()
+    {
+        KillDoTween();
+        ResetCharactorRotation();
+        _isAnimation = false;
+    }
+    public void OnMouseUp()
+    {
+        _isAnimation = true;
+    }
 }
