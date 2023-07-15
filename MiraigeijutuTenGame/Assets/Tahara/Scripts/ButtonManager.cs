@@ -16,12 +16,17 @@ public class ButtonManager : MonoBehaviour
 
     void Start()
     {
+        //_addHeart = GetComponent<AddHeart>();
+        _riceUnlock = PlayerPrefs.GetInt("ButtonUnlock", 0);
+    }
+
+    private void Update()
+    {
         //スクリプトを取得して格納
         _addHeart = new AddHeart();
-        //_addHeart = GetComponent<AddHeart>();
-        _heart = _addHeart._heart;
-        _riceUnlock = PlayerPrefs.GetInt("ButtonUnlock", 8);
+        _heart = _addHeart._heart + 50;
         Unlock();
+        Debug.Log(_heart);
     }
 
     void Unlock()
