@@ -5,6 +5,9 @@ using DG.Tweening;
 using UniRx;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using Unity.VisualScripting.Antlr3.Runtime;
+using UnityEngine.UIElements;
+using Unity.VisualScripting;
 /// <summary>
 /// キャラクターViewを管理するスクリプト
 /// </summary>
@@ -75,36 +78,77 @@ public class PlayerAnimation : MonoBehaviour
     /// プレイヤーの動き、アニメーション
     /// </summary>
     float _moveRange = 2.5f;
-    float _rotateDuration = 0.5f;
+    float _rotateDuration = 1f;
+    float _flipDuration = 0.5f;
+    Vector3 _defaltSacale = Vector3.zero;
     bool _isAnimation = true;
+    CancellationTokenSource cts;
+    CancellationToken token;
     private void Start()
     {
-        MoveAnimation();
+        _defaltSacale = transform.localScale;
+        cts = new CancellationTokenSource();
+        token = cts.Token;
+        //token = this.GetCancellationTokenOnDestroy();
+        MoveAnimation(token);
     }
-    private async void MoveAnimation()
+    private async void MoveAnimation(CancellationToken token)
     {
         while (_isAnimation)
         { 
-            await RandomWalk();
-            await UniTask.Delay((int)Random.Range(3f, 10f) * 1000);
+            await RandomWalk(token);
+            await UniTask.Delay((int)Random.Range(3f, 10f) * 1000 ,cancellationToken: token); 
             //print("MoveAnimation");
         }
     }
     public Vector3 randomPosition;
-    public async UniTask RandomWalk()
+    public async UniTask RandomWalk(CancellationToken token) 
     {
         float moveTime = 3f;
         randomPosition = new Vector3(Random.Range(-_moveRange, _moveRange), Random.Range(0, _moveRange), 0);
         float animationRatio =  (randomPosition - transform.position).sqrMagnitude / (2 * (_moveRange * _moveRange)) ;
 
         //print($"_moveRange{_moveRange * _moveRange} : randomPosition.sqrMagnitude {randomPosition.sqrMagnitude} ");
+        FlipAnimation(randomPosition.x);
         LevelManager.Instance.ChangeSortingLayer(gameObject.name);
-        transform.DOMove(randomPosition, moveTime);
-        WalkingAnimation(moveTime , animationRatio);
-        await UniTask.Delay((int)( moveTime* 1000));
+        
+        WalkingAnimation(moveTime, animationRatio, token);
+        await transform.DOMove(randomPosition, moveTime)
+            .ToUniTask(cancellationToken: token);
         return;
     }
-    public async void WalkingAnimation(float moveTime , float animationRatio)
+    public void FlipAnimation(float positionX)
+    {
+        if(positionX - transform.position.x < 0 )
+        {
+            if (transform.localScale.x < 0)
+            {
+                transform.DOScaleX(Mathf.Abs(transform.localScale.x), _flipDuration);
+            }
+        }
+        else
+        {
+            if(transform.localScale.x > 0)
+            {
+                transform.DOScaleX(-Mathf.Abs(transform.localScale.x), _flipDuration);
+            }
+        }
+    }
+    public void FixFlipAnimation()
+    {
+        if(Mathf.Abs(transform.localScale.x) != 1f)
+        {
+            if (transform.localScale.x > 0)
+            {
+                transform.DOScaleX(_defaltSacale.x, 0.1f);
+            }
+            if (transform.localScale.x < 0)
+            {
+                transform.DOScaleX(- _defaltSacale.x, 0.1f);
+            }
+        }
+    }
+    public async void WalkingAnimation(float moveTime , float animationRatio, CancellationToken token)
     {
         float startTime = Time.time;
         int Count = Random.Range(0,2);
@@ -112,41 +156,35 @@ public class PlayerAnimation : MonoBehaviour
         {
             if(Time.time - startTime < moveTime)
             {
-                
                 if(Count % 2 == 0)
                 {
-                    transform.DOLocalRotate(new Vector3(0, 0, Mathf.Clamp(10 * animationRatio,0,10)), _rotateDuration);
-                    await UniTask.Delay((int)(_rotateDuration * 1000));
+                    await transform.DOLocalRotate(new Vector3(0, 0, Mathf.Clamp(10 * animationRatio, 0, 10)), _rotateDuration)
+                        .AsyncWaitForCompletion();
                 }
                 else
                 {
-                    transform.DOLocalRotate(new Vector3(0, 0, Mathf.Clamp(-10 * animationRatio, -10, 0)), _rotateDuration);
-                    await UniTask.Delay((int)(_rotateDuration * 1000));
+                    await transform.DOLocalRotate(new Vector3(0, 0, Mathf.Clamp(-10 * animationRatio, -10, 0)), _rotateDuration)
+                        .AsyncWaitForCompletion();
                 }
                 Count ++ ;
             }
             else
             {
-                ResetCharactorRotation();
+                await transform.DOLocalRotate(new Vector3(0, 0, 0), _rotateDuration)
+                    .AsyncWaitForCompletion();
                 break;
             }
             //print($"WalkingAnimation{animationRatio}");
         }
     }
-    public void ResetCharactorRotation()
-    {
-        transform.DOLocalRotate(new Vector3(0, 0, 0), _rotateDuration);
-    }
 
-    public void KillDoTween()
-    {
-        transform.DOKill();
-    }
     public void OnMouseDown()
     {
-        KillDoTween();
-        ResetCharactorRotation();
+        transform.DOKill();
+        FixFlipAnimation();
+        transform.DOLocalRotate(new Vector3(0, 0, 0), _rotateDuration);
         _isAnimation = false;
+
     }
     public void OnMouseUp()
     {

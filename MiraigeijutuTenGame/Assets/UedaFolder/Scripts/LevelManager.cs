@@ -107,7 +107,7 @@ public class LevelManager : MonoBehaviour
 
     void ActiveHomeCharactors()
     {
-        for(int i = 0;i < MAX_HOME_CHARACTOR; i++)
+        for(int i = 0;i < HomeCharactorList.Count; i++)
         {
             HomeCharactorList[i].transform.position = new Vector3(i + 3 , 0, 0);
             HomeCharactorList[i].gameObject.SetActive(true);
