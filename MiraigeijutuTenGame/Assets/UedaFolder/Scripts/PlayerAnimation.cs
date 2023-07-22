@@ -84,6 +84,7 @@ public class PlayerAnimation : MonoBehaviour
     bool _isAnimation = true;
     CancellationTokenSource cts;
     CancellationToken token;
+    public Vector3 randomPosition;
     private void Start()
     {
         _defaltSacale = transform.localScale;
@@ -101,7 +102,7 @@ public class PlayerAnimation : MonoBehaviour
             //print("MoveAnimation");
         }
     }
-    public Vector3 randomPosition;
+    
     public async UniTask RandomWalk(CancellationToken token) 
     {
         float moveTime = 3f;
@@ -177,17 +178,17 @@ public class PlayerAnimation : MonoBehaviour
             //print($"WalkingAnimation{animationRatio}");
         }
     }
-
-    public void OnMouseDown()
+    public void StopAmnimation()
     {
         transform.DOKill();
         FixFlipAnimation();
         transform.DOLocalRotate(new Vector3(0, 0, 0), _rotateDuration);
         _isAnimation = false;
-
     }
-    public void OnMouseUp()
+    public void ActiveAnimation()
     {
         _isAnimation = true;
     }
+
+
 }

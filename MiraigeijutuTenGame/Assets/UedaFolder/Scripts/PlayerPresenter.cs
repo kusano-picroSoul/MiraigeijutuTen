@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+[RequireComponent(typeof(PlayerStatus))]
+[RequireComponent(typeof(PlayerAnimation))]
 public class PlayerPresenter : MonoBehaviour
 {
     private PlayerStatus _playerStatus;
@@ -55,4 +57,14 @@ public class PlayerPresenter : MonoBehaviour
             //Happyのアニメーション
         }
     }
+    public void OnMouseDown()
+    {
+        _playerAnimation.StopAmnimation();
+
+    }
+    public void OnMouseUp()
+    {
+        _playerAnimation.ActiveAnimation();
+    }
+
 }
