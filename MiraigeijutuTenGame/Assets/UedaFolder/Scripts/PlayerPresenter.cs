@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+[RequireComponent(typeof(PlayerStatus))]
+[RequireComponent(typeof(PlayerAnimation))]
 public class PlayerPresenter : MonoBehaviour
 {
     private PlayerStatus _playerStatus;
@@ -17,16 +19,7 @@ public class PlayerPresenter : MonoBehaviour
         _playerStatus.status._smart.Subscribe(_ => _playerStatus.PlayerConditionUpdate()).AddTo(gameObject);
         _playerStatus.status._helth.Subscribe(_ => _playerStatus.PlayerConditionUpdate()).AddTo(gameObject);
         _playerStatus.PlayerCondition.Subscribe(playerCondition => PlayerConditionMoving(playerCondition)).AddTo(gameObject);
-
     }
-    //async UniTask LoadChactor()
-    //{
-    //    while ()
-    //    {
-
-    //    }
-    //    await UniTask.Delay(500);
-    //}
 
     //プレイヤーのコンディションに応じた動きとアニメーション
     public void PlayerConditionMoving(Condition playerCondition)
@@ -37,7 +30,6 @@ public class PlayerPresenter : MonoBehaviour
             _playerAnimation.NormalSprite();
             //ランダムウォーク(DoTween)
             //他のプレイヤーに近づいて話しかける
-
         }
         else if (playerCondition == Condition.Tired)
         {
@@ -65,4 +57,14 @@ public class PlayerPresenter : MonoBehaviour
             //Happyのアニメーション
         }
     }
+    public void OnMouseDown()
+    {
+        _playerAnimation.StopAmnimation();
+
+    }
+    public void OnMouseUp()
+    {
+        _playerAnimation.ActiveAnimation();
+    }
+
 }

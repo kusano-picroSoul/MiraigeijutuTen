@@ -15,7 +15,6 @@ public class PauseScript : MonoBehaviour
     /// <summary>ƒpƒlƒ‹‚ªON‚ÌŽž/// </summary>
     public void StopGame()
     {
-        Time.timeScale = 0f;
         _staffButton.SetActive(false);
         _restartButton.SetActive(true);
         _Panel.SetActive(true);

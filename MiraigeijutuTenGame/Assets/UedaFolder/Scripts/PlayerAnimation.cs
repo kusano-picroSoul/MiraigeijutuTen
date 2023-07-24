@@ -5,6 +5,9 @@ using DG.Tweening;
 using UniRx;
 using Cysharp.Threading.Tasks;
 using System.Threading;
+using Unity.VisualScripting.Antlr3.Runtime;
+using UnityEngine.UIElements;
+using Unity.VisualScripting;
 /// <summary>
 /// キャラクターViewを管理するスクリプト
 /// </summary>
@@ -74,58 +77,117 @@ public class PlayerAnimation : MonoBehaviour
     /// <summary>
     /// プレイヤーの動き、アニメーション
     /// </summary>
-    float _moveRange = 2f;
-    float _rotateDuration = 0.5f;
+    float _moveRange = 2.5f;
+    float _rotateDuration = 1f;
+    float _flipDuration = 0.5f;
+    Vector3 _defaltSacale = Vector3.zero;
+    bool _isAnimation = true;
+    CancellationTokenSource cts;
+    CancellationToken token;
+    public Vector3 randomPosition;
     private void Start()
     {
-        MoveAnimation();
+        _defaltSacale = transform.localScale;
+        cts = new CancellationTokenSource();
+        token = cts.Token;
+        //token = this.GetCancellationTokenOnDestroy();
+        MoveAnimation(token);
     }
-    private async void MoveAnimation()
+    private async void MoveAnimation(CancellationToken token)
     {
-        while (true)
-        {
-            await RandomWalk();
-            await UniTask.Delay(3000);
-            //print("呼ばれた");
+        while (_isAnimation)
+        { 
+            await RandomWalk(token);
+            await UniTask.Delay((int)Random.Range(3f, 10f) * 1000 ,cancellationToken: token); 
+            //print("MoveAnimation");
         }
     }
-    public async UniTask RandomWalk()
+    
+    public async UniTask RandomWalk(CancellationToken token) 
     {
         float moveTime = 3f;
-        Vector3 randomPosition = new Vector3(Random.Range(-_moveRange, _moveRange), Random.Range(-_moveRange, _moveRange), 0);
-        //print($"呼ばれた2{randomPosition}");
-        transform.DOMove(randomPosition, moveTime);
-        WalkingAnimation(moveTime);
-        await UniTask.Delay((int)( moveTime* 1000));
+        randomPosition = new Vector3(Random.Range(-_moveRange, _moveRange), Random.Range(0, _moveRange), 0);
+        float animationRatio =  (randomPosition - transform.position).sqrMagnitude / (2 * (_moveRange * _moveRange)) ;
+
+        //print($"_moveRange{_moveRange * _moveRange} : randomPosition.sqrMagnitude {randomPosition.sqrMagnitude} ");
+        FlipAnimation(randomPosition.x);
+        LevelManager.Instance.ChangeSortingLayer(gameObject.name);
+        
+        WalkingAnimation(moveTime, animationRatio, token);
+        await transform.DOMove(randomPosition, moveTime)
+            .ToUniTask(cancellationToken: token);
         return;
     }
-    public async void WalkingAnimation(float moveTime)
+    public void FlipAnimation(float positionX)
+    {
+        if(positionX - transform.position.x < 0 )
+        {
+            if (transform.localScale.x < 0)
+            {
+                transform.DOScaleX(Mathf.Abs(transform.localScale.x), _flipDuration);
+            }
+        }
+        else
+        {
+            if(transform.localScale.x > 0)
+            {
+                transform.DOScaleX(-Mathf.Abs(transform.localScale.x), _flipDuration);
+            }
+        }
+    }
+    public void FixFlipAnimation()
+    {
+        if(Mathf.Abs(transform.localScale.x) != 1f)
+        {
+            if (transform.localScale.x > 0)
+            {
+                transform.DOScaleX(_defaltSacale.x, 0.1f);
+            }
+            if (transform.localScale.x < 0)
+            {
+                transform.DOScaleX(- _defaltSacale.x, 0.1f);
+            }
+        }
+    }
+    public async void WalkingAnimation(float moveTime , float animationRatio, CancellationToken token)
     {
         float startTime = Time.time;
         int Count = Random.Range(0,2);
-        while(true)
+        while(_isAnimation)
         {
             if(Time.time - startTime < moveTime)
             {
                 if(Count % 2 == 0)
                 {
-                    transform.DOLocalRotate(new Vector3(0, 0, 10), _rotateDuration);
-                    await UniTask.Delay((int)(_rotateDuration * 1000));
+                    await transform.DOLocalRotate(new Vector3(0, 0, Mathf.Clamp(10 * animationRatio, 0, 10)), _rotateDuration)
+                        .AsyncWaitForCompletion();
                 }
                 else
                 {
-                    transform.DOLocalRotate(new Vector3(0, 0, -10), _rotateDuration);
-                    await UniTask.Delay((int)(_rotateDuration * 1000));
+                    await transform.DOLocalRotate(new Vector3(0, 0, Mathf.Clamp(-10 * animationRatio, -10, 0)), _rotateDuration)
+                        .AsyncWaitForCompletion();
                 }
                 Count ++ ;
             }
             else
             {
-                transform.DOLocalRotate(new Vector3(0, 0, 0), _rotateDuration);
+                await transform.DOLocalRotate(new Vector3(0, 0, 0), _rotateDuration)
+                    .AsyncWaitForCompletion();
                 break;
             }
-            // print ("呼ばれた3");
+            //print($"WalkingAnimation{animationRatio}");
         }
+    }
+    public void StopAmnimation()
+    {
+        transform.DOKill();
+        FixFlipAnimation();
+        transform.DOLocalRotate(new Vector3(0, 0, 0), _rotateDuration);
+        _isAnimation = false;
+    }
+    public void ActiveAnimation()
+    {
+        _isAnimation = true;
     }
 
 

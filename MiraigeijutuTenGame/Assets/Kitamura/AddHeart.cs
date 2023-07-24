@@ -22,7 +22,7 @@ public class AddHeart : MonoBehaviour
         if (_addHeartTime < _timer)
         {
             //ŽÀ‘•ƒLƒƒƒ‰‚Ì”~ê‚É‚¢‚éƒLƒƒƒ‰‚Ì”~‚«‚¸‚Èƒpƒ[
-            _heart += //LevelManager.AllCharactorList.Count * LevelManager.HomeCharactorList.Count * 
+            _heart += LevelManager.AllCharactorList.Count * LevelManager.HomeCharactorList.Count * 
                 _heartShop._friendPowerLevel;
             _heartUI.text = _heart.ToString();
             _timer = 0;
