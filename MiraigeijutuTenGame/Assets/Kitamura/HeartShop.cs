@@ -47,7 +47,7 @@ public class HeartShop : MonoBehaviour
             {
                 _addHeart._heart -= _level * _friendPowerLevel;
                 _friendPowerLevel += 1;
-                _addHeartSeconds.text = (_friendPowerLevel * 10).ToString() + "/s";
+                _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString() + "/s";
                 _heartCost0.text = "cost " + (_level * _friendPowerLevel).ToString();
             }
         }
