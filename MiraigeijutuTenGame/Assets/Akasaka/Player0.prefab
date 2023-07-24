@@ -180,6 +180,9 @@ GameObject:
   - component: {fileID: 1828996081541584875}
   - component: {fileID: 8277470763925662827}
   - component: {fileID: 6572009295359516069}
+  - component: {fileID: -4115238515731744380}
+  - component: {fileID: 4177812367366909793}
+  - component: {fileID: 451975618146248726}
   m_Layer: 0
   m_Name: Player0
   m_TagString: Untagged
@@ -265,6 +268,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5f57a1c3062774fb51d8f9163e11f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4115238515731744380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890349504905140164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 733009170a7a1a449b40a4f3994eedfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4177812367366909793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890349504905140164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e362c4909903f4984551f36bf2e883, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerCondition:
+    value: 0
+  _hungry:
+    value: 50
+  _happy:
+    value: 50
+  _smart:
+    value: 50
+  _helth:
+    value: 50
+  _text: {fileID: 0}
+  _active: 0
+  _hungryBar: {fileID: 0}
+  _happyBar: {fileID: 0}
+  _smartBar: {fileID: 0}
+  _helthBar: {fileID: 0}
+  _posi: {x: 0, y: 0}
+--- !u!61 &451975618146248726
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890349504905140164}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.09, y: 0.59}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.64, y: 5.25}
+  m_EdgeRadius: 0
 --- !u!1 &1458329522241820090
 GameObject:
   m_ObjectHideFlags: 0
