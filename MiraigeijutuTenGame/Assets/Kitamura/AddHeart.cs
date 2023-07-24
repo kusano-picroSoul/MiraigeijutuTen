@@ -16,13 +16,22 @@ public class AddHeart : MonoBehaviour
     //0.1秒間に一回増やす
     float _addHeartTime = 0.1f;
 
+    int _normalConditionPlayerCount = 0;
+
     void Update()
     {
         _timer += Time.deltaTime;
+        foreach (var charctor in LevelManager.HomeCharactorList)
+        {
+            if (charctor.PlayerCondition.Value == Condition.Normal)
+            {
+                _normalConditionPlayerCount++;
+            }
+        }
         if (_addHeartTime < _timer)
         {
-            //実装キャラの数×場にいるキャラの数×きずなパワー
-            _heart += LevelManager.AllCharactorList.Count * LevelManager.HomeCharactorList.Count * 
+            //実装キャラの数×場にいるコンディションがノーマルなキャラの数×きずなパワー
+            _heart += LevelManager.AllCharactorList.Count * _normalConditionPlayerCount *
                 _heartShop._friendPowerLevel;
             _heartUI.text = _heart.ToString();
             _timer = 0;

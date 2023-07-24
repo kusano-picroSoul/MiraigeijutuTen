@@ -25,16 +25,16 @@ public class HeartShop : MonoBehaviour
 
     //変動する値
     //小
-    float _small = 0.1f;
+    float _small = 1.1f;
     //中
-    float _mid = 0.2f;
+    float _mid = 1.2f;
     //大
-    float _large = 0.3f;
+    float _large = 1.3f;
 
     /// <summary> きずなパワーのレベル　※秒間きずなパワーレベル×１０のハートをゲット </summary>
-    public int _friendPowerLevel = 0;
+    public int _friendPowerLevel = 1;
     /// <summary> あまえオーラのレベル　※場にいるプレイヤーをタッチするとあまえオーラレベルに応じてハートをゲット </summary>
-    public int _lovePowerLevel = 0;
+    public int _lovePowerLevel = 1;
 
     //コスト倍率（仮）
     int _level = 50;
@@ -65,10 +65,5 @@ public class HeartShop : MonoBehaviour
                 _heartCost1.text = "cost " + (_level * _lovePowerLevel).ToString();
             }
         }
-    }
-
-    float Foods(float )
-    {
-
     }
 }
