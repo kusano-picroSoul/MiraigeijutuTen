@@ -11,22 +11,26 @@ public class StatusDisplay : MonoBehaviour
     //public ReactiveProperty<int> _happy = new(50);
     //public ReactiveProperty<int> _smart = new(50);
     //public ReactiveProperty<int> _helth = new(50);
-    [SerializeField] Text _text;
+    Text _text;
     [SerializeField] bool _active = false;
-    [SerializeField] Slider _hungryBar;
-    [SerializeField] Slider _happyBar;
-    [SerializeField] Slider _smartBar;
+    Slider _hungryBar;
+    Slider _happyBar;
+    Slider _smartBar;
     //[SerializeField] Slider _helthBar;
     PlayerStatus _status;
     // Start is called before the first frame update
     void Start()
     {
         _status = GetComponent<PlayerStatus>();
-       _text.enabled = false;
-       _hungryBar.gameObject.SetActive(false);
+        _text = GameObject.Find("Canvas/Hungry").GetComponent<Text>();
+        _hungryBar = GameObject.Find("Canvas/HungryBar").GetComponent<Slider>();
+        _happyBar = GameObject.Find("Canvas/HappyBar").GetComponent<Slider>();
+        _smartBar = GameObject.Find("Canvas/SmartBar").GetComponent<Slider>();
+        _hungryBar.gameObject.SetActive(false);
        _happyBar.gameObject.SetActive(false);
        _smartBar.gameObject.SetActive(false);
-      // _helthBar.gameObject.SetActive(false);
+        _text.enabled = false;
+        // _helthBar.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -34,18 +38,19 @@ public class StatusDisplay : MonoBehaviour
     {  
         //_status.Happy
         //PlayerConditionUpdate();
-        _text.text = "Ç®Ç»Ç©Å@ :" + _status.Hungry + "\n"
-               + "Ç≤Ç´Ç∞ÇÒ :" + _status.Happy + "\n"
-               + "Ç©ÇµÇ±Ç≥ :" + _status.Smart;
-        _hungryBar.value = _status.Hungry;
-        _happyBar.value = _status.Happy;
-        _smartBar.value = _status.Smart;
-        Vector2 posi = GameObject.Find("Player0").transform.position;
-        GameObject.Find("Canvas").transform.position = new Vector2(posi.x + 3.3f, posi.y);
+       
     }
 
     public void OnMouseDown()
     {
+        _text.text = "Ç®Ç»Ç©Å@ :" + _status.Hungry + "\n"
+              + "Ç≤Ç´Ç∞ÇÒ :" + _status.Happy + "\n"
+              + "Ç©ÇµÇ±Ç≥ :" + _status.Smart;
+        _hungryBar.value = _status.Hungry;
+        _happyBar.value = _status.Happy;
+        _smartBar.value = _status.Smart;
+        Vector2 posi = transform.position;
+        GameObject.Find("Canvas").transform.position = new Vector2(posi.x + 3.3f, posi.y);
         Debug.Log("êGÇ¡ÇΩ");
         if (_active == false)
         {
@@ -56,13 +61,16 @@ public class StatusDisplay : MonoBehaviour
             //_helthBar.gameObject.SetActive(true);
             _active = true;
         }
-        else
+    }
+    private void OnMouseUp()
+    {
+        if(_active == true)
         {
             _text.enabled = false;
             _hungryBar.gameObject.SetActive(false);
             _happyBar.gameObject.SetActive(false);
             _smartBar.gameObject.SetActive(false);
-           // _helthBar.gameObject.SetActive( false);
+            // _helthBar.gameObject.SetActive( false);
             _active = false;
         }
     }

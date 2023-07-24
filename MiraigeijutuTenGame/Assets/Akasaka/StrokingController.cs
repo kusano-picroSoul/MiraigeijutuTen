@@ -17,11 +17,4 @@ public class StrokingController : PlayerPresenter
     {
         _playerAnimation.HappySprite();
     }
-
-    private void OnMouseUp()
-    {
-        _JunpMotion = GetComponent<Animator>();
-        _JunpMotion.SetBool("JumpMotion", true);
-    }
-
 }
