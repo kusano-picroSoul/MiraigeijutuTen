@@ -15,12 +15,13 @@ public class Status
 }
 public class PlayerStatus :MonoBehaviour
 {
+    int MaxStatusValue = 1000;
     public Status status = new();
     //クラスをインスタンス化したものは検知することが出来ない。
     public ReactiveProperty<Condition> PlayerCondition = new ReactiveProperty<Condition>(Condition.Normal);
     public int Hungry
     {
-        set { status._hungry.Value = Mathf.Clamp(value,0,100); }
+        set { status._hungry.Value = Mathf.Clamp(value,0, MaxStatusValue); }
         get 
         { 
             return status._hungry.Value; 
@@ -28,22 +29,22 @@ public class PlayerStatus :MonoBehaviour
     }
     public int Happy
     {
-        set { status._happy.Value = Mathf.Clamp(value,0,100);}
+        set { status._happy.Value = Mathf.Clamp(value,0, MaxStatusValue);}
         get { return status._happy.Value; } 
     }
     public int Smart
     {
-        set { status._smart.Value = Mathf.Clamp(value, 0, 100); }
+        set { status._smart.Value = Mathf.Clamp(value, 0, MaxStatusValue); }
         get { return status._smart.Value; }
     }
     public int Health
     {
-        set { status._helth.Value = Mathf.Clamp(value, 0, 100); }
+        set { status._helth.Value = Mathf.Clamp(value, 0, MaxStatusValue); }
         get { return status._helth.Value; }
     }
     public int Familiarity
     {
-        set { status._familiarity.Value = Mathf.Clamp(value, 0, 100); }
+        set { status._familiarity.Value = Mathf.Clamp(value, 0, MaxStatusValue); }
         get { return status._familiarity.Value; }
     }
 
