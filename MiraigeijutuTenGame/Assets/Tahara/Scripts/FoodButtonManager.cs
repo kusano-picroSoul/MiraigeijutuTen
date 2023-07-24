@@ -5,9 +5,13 @@ using static LevelManager;
 public class FoodButtonManager : MonoBehaviour
 {
     [SerializeField] Button[] _riceButton;
-    [SerializeField] GameObject _rice;
+    [SerializeField] GameObject[] _riceprefabs;
     int _buttonNumber = 0;
     int _riceUnlock;
+    //ステータス管理用変数
+    int _small = 30;
+    int _medium = 60;
+    int _large = 90;
     //北村君のスクリプトからハートを取得
     [SerializeField] AddHeart _addHeart;
     void Start()
@@ -46,60 +50,82 @@ public class FoodButtonManager : MonoBehaviour
     }
     public void RiceButton()
     {
-
-        GameObject rice_obj = Instantiate(_rice, new Vector3(0, 0, 0),Quaternion.identity);
+        GameObject rice_obj = Instantiate(_riceprefabs[0], new Vector3(0, 0, 0),Quaternion.identity);
         Destroy(rice_obj, 3f);
         foreach(var player in HomeCharactorList)
         {
-            player.Hungry += 30;
+            player.Hungry += _small;
             Debug.Log(player.Hungry + "おなかの数値");
         }
         _addHeart._heart -= 50;//ハートが増える記載はしていないので要注意
-        Debug.Log(_addHeart._heart);
+        //Debug.Log(_addHeart._heart);
     }
     public void ChocoButton()
     {
+        GameObject rice_obj = Instantiate(_riceprefabs[1], new Vector3(0, 0, 0), Quaternion.identity);
+        Destroy(rice_obj, 3f);
         foreach (var player in HomeCharactorList)
         {
-            player.Happy += 30;
+            player.Happy += _small;
+            Debug.Log(player.Happy);
         }
-        _addHeart._heart -= 1000;
+        _addHeart._heart -= 50;
+        
     }
-    public void PizaButtonUnlock()
+    public void StudyButton()
     {
+        GameObject rice_obj = Instantiate(_riceprefabs[2], new Vector3(0, 0, 0), Quaternion.identity);
+        Destroy(rice_obj, 3f);
         //鉛筆ボタン：かしこさ↑小　ハート↑小
         foreach (var player in HomeCharactorList)
         {
-            player.Familiarity += 60;
+            player.Familiarity += _medium;
         }
-        _addHeart._heart -= 5000;
+        _addHeart._heart -= 50;
+    }
+    public void PizaButtonUnlock()
+    {
+        GameObject rice_obj = Instantiate(_riceprefabs[3], new Vector3(0, 0, 0), Quaternion.identity);
+        Destroy(rice_obj, 3f);
+        //おなか↑中　ごきげん↑小　ハート↑中 
+        foreach (var player in HomeCharactorList)
+        {
+            player.Hungry += _medium;
+            player.Happy += _small;
+        }
+        _addHeart._heart -= 50;
     }
     public void IceButtonUnlock()
     {
+        GameObject rice_obj = Instantiate(_riceprefabs[4], new Vector3(0, 0, 0), Quaternion.identity);
+        Destroy(rice_obj, 3f);
         foreach (var player in HomeCharactorList)
         {
-            player.Happy += 60;
-            player.Hungry += 30;
+            player.Happy += _medium;
+            player.Hungry += _small;
         }
         //ごきげん↑中　おなか↑小　ハート↑中
-        _addHeart._heart -= 5000;
+        _addHeart._heart -= 50;
         
     }
-    public void SaladaButtonUnlock()
+    public void PCButtonUnlock()
     {
+        GameObject rice_obj = Instantiate(_riceprefabs[5], new Vector3(0, 0, 0), Quaternion.identity);
+        Destroy(rice_obj, 3f);
         //ノートパソコンボタン：かしこさ↑中 ごきげん↓小 ハート↑中
         foreach (var player in HomeCharactorList)
         {
-            player.Familiarity += 60;
-            player.Happy -= 30;
+            player.Familiarity += _medium;
+            player.Happy -= _small;
         }
+        _addHeart._heart -= 50;
     }
     public void KathuCurryButtonUnlock()
     {
         foreach (var player in HomeCharactorList)
         {
-            player.Hungry += 90;
-            player.Happy += 60;
+            player.Hungry += _large;
+            player.Happy += _medium;
         }
         //おなか↑大　ごきげん↑中　ハート↑大
         _addHeart._heart -= 10000;
@@ -108,8 +134,8 @@ public class FoodButtonManager : MonoBehaviour
     {
         foreach (var player in HomeCharactorList)
         {
-            player.Happy += 90;
-            player.Hungry += 60;
+            player.Happy += _large;
+            player.Hungry += _medium;
         }
         //ごきげん↑大　おなか↑中　ハート↑大
         _addHeart._heart -= 10000;
@@ -118,8 +144,8 @@ public class FoodButtonManager : MonoBehaviour
     {
         foreach (var player in HomeCharactorList)
         {
-            player.Familiarity += 90;
-            player.Happy -= 30;
+            player.Familiarity += _large;
+            player.Happy -= _small;
         }
         //かしこさ↑大　ごきげん↓小　ハート↑大
     }
