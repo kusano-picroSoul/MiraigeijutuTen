@@ -122,6 +122,8 @@ public class FoodButtonManager : MonoBehaviour
     }
     public void KathuCurryButtonUnlock()
     {
+        GameObject rice_obj = Instantiate(_riceprefabs[6], new Vector3(0, 0, 0), Quaternion.identity);
+        Destroy(rice_obj, 3f);
         foreach (var player in HomeCharactorList)
         {
             player.Hungry += _large;
@@ -132,6 +134,8 @@ public class FoodButtonManager : MonoBehaviour
     }
     public void CakeButtonUnlock()
     {
+        GameObject rice_obj = Instantiate(_riceprefabs[7], new Vector3(0, 0, 0), Quaternion.identity);
+        Destroy(rice_obj, 3f);
         foreach (var player in HomeCharactorList)
         {
             player.Happy += _large;
@@ -142,6 +146,8 @@ public class FoodButtonManager : MonoBehaviour
     }
     public void NutoritionFoodButtonUnlock()
     {
+        GameObject rice_obj = Instantiate(_riceprefabs[8], new Vector3(0, 0, 0), Quaternion.identity);
+        Destroy(rice_obj, 3f);
         foreach (var player in HomeCharactorList)
         {
             player.Familiarity += _large;

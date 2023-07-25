@@ -4207,6 +4207,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6339184988314042782, guid: 4315a87929fe81c42a3de1dd48e2ba26, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -172
+      objectReference: {fileID: 0}
+    - target: {fileID: 6339184988314042782, guid: 4315a87929fe81c42a3de1dd48e2ba26, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 94
+      objectReference: {fileID: 0}
     - target: {fileID: 6339184988794008881, guid: 4315a87929fe81c42a3de1dd48e2ba26, type: 3}
       propertyPath: _heartShop
       value: 
@@ -4298,6 +4306,18 @@ PrefabInstance:
     - target: {fileID: 6339184989971178104, guid: 4315a87929fe81c42a3de1dd48e2ba26, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6339184989971178104, guid: 4315a87929fe81c42a3de1dd48e2ba26, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6339184990044430827, guid: 4315a87929fe81c42a3de1dd48e2ba26, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -172
+      objectReference: {fileID: 0}
+    - target: {fileID: 6339184990044430827, guid: 4315a87929fe81c42a3de1dd48e2ba26, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 70
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4315a87929fe81c42a3de1dd48e2ba26, type: 3}
@@ -4585,8 +4605,8 @@ MonoBehaviour:
   - {fileID: 1280925582}
   - {fileID: 2083152765}
   - {fileID: 1983347882}
-  - {fileID: 328172976}
   - {fileID: 1357559083}
+  - {fileID: 328172976}
   - {fileID: 1642661526}
   _riceprefabs:
   - {fileID: 1794493977282703597, guid: 291d4fcd05388aa4dbe66a9f256185e1, type: 3}
@@ -4595,6 +4615,9 @@ MonoBehaviour:
   - {fileID: 1557824788348937591, guid: e0f6b9937f05bfe42843193abe5476b2, type: 3}
   - {fileID: 5797060921071596200, guid: c29cf6fcdf7fee449847163a84019539, type: 3}
   - {fileID: 7226993766539485846, guid: 8a5b5d0316688e6458fdded50022199b, type: 3}
+  - {fileID: 7745888457191038604, guid: f83fff933b84f82458d494af954a7001, type: 3}
+  - {fileID: 4404750535679698004, guid: 4212765762e4af04cad75aa78373d411, type: 3}
+  - {fileID: 2898614684417501046, guid: eb9e55bdbcff2f849aa7fa7d084e21be, type: 3}
   _addHeart: {fileID: 1216468321}
 --- !u!1 &1928836558
 GameObject:
