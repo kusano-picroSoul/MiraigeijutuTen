@@ -31,17 +31,17 @@ public class StatusDisplay : MonoBehaviour
     public void OnMouseDown()
     {
        
-        _text.text = "‚¨‚È‚©       :" + _status.Hungry + "\n"
-                   + "‚²‚«‚°‚ñ    :" + _status.Happy + "\n"
-                   + "‚©‚µ‚±‚³    :" + _status.Smart +"\n"
-                   + "‚È‚©‚æ‚µ“x :" + _status.Familiarity;
+        _text.text = "ãŠãªã‹ã€€ :" + _status.Hungry + " \n"
+                   + "ã”ãã’ã‚“ :" + _status.Happy + "\n"
+                   + "ã‹ã—ã“ã• :" + _status.Smart +"\n"
+                   + "ãªã¤ãåº¦ :" + _status.Familiarity;
         _hungryBar.value = _status.Hungry;
         _happyBar.value = _status.Happy;
         _smartBar.value = _status.Smart;
         _familiarityBar.value = _status.Familiarity;
         Vector2 posi = transform.position;
         GameObject.Find("StatusWindow").transform.position = new Vector2(posi.x + 3.3f, posi.y);
-        Debug.Log("G‚Á‚½");
+        Debug.Log("ï¿½Gï¿½ï¿½ï¿½ï¿½");
         if (_active == false)
         {
             _text.enabled = true;

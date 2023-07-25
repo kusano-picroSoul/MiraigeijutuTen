@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HeartShop : MonoBehaviour
 {
-    /// <summary>TEXT‚ÉƒRƒ“ƒ|[ƒlƒ“ƒg‚Æ‚µ‚Ä•t‚¢‚Ä‚é</summary>
+    /// <summary>TEXTï¿½ÉƒRï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½gï¿½Æ‚ï¿½ï¿½Ä•tï¿½ï¿½ï¿½Ä‚ï¿½</summary>
     [SerializeField] AddHeart _addHeart;
 
     [SerializeField] Text _addHeartSeconds;
@@ -13,34 +13,34 @@ public class HeartShop : MonoBehaviour
     [SerializeField] Text _heartCost0;
     [SerializeField] Text _heartCost1;
 
-    /// <summary> ‚«‚¸‚Èƒpƒ[‚ÌƒŒƒxƒ‹@¦•bŠÔ‚«‚¸‚Èƒpƒ[ƒŒƒxƒ‹~‚P‚O‚Ìƒn[ƒg‚ğƒQƒbƒg </summary>
+    /// <summary> ï¿½ï¿½ï¿½ï¿½ï¿½Èƒpï¿½ï¿½ï¿½[ï¿½Ìƒï¿½ï¿½xï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½bï¿½Ô‚ï¿½ï¿½ï¿½ï¿½Èƒpï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½~ï¿½Pï¿½Oï¿½Ìƒnï¿½[ï¿½gï¿½ï¿½ï¿½Qï¿½bï¿½g </summary>
     public int _friendPowerLevel = 1;
-    /// <summary> ‚ ‚Ü‚¦ƒI[ƒ‰‚ÌƒŒƒxƒ‹@¦ê‚É‚¢‚éƒvƒŒƒCƒ„[‚ğƒ^ƒbƒ`‚·‚é‚Æ‚ ‚Ü‚¦ƒI[ƒ‰ƒŒƒxƒ‹‚É‰‚¶‚Äƒn[ƒg‚ğƒQƒbƒg </summary>
+    /// <summary> ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½Iï¿½[ï¿½ï¿½ï¿½Ìƒï¿½ï¿½xï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½^ï¿½bï¿½`ï¿½ï¿½ï¿½ï¿½Æ‚ï¿½ï¿½Ü‚ï¿½ï¿½Iï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½É‰ï¿½ï¿½ï¿½ï¿½Äƒnï¿½[ï¿½gï¿½ï¿½ï¿½Qï¿½bï¿½g </summary>
     public int _lovePowerLevel = 1;
 
-    //ƒRƒXƒg”{—¦i‰¼j
+    //ï¿½Rï¿½Xï¿½gï¿½{ï¿½ï¿½ï¿½iï¿½ï¿½ï¿½j
     int _level = 500;
 
     public int _strokingAddHeart = 10000;
 
     void Start()
     {
-        _heartCost0.text = "cost " + (_level * _friendPowerLevel).ToString();
+        _heartCost0.text = (_level * _friendPowerLevel).ToString();
         _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString("F0") + "/s";
-        _heartCost1.text = "cost " + (_level * _lovePowerLevel).ToString();
-        _touchAddHeart.text = "+" + (_strokingAddHeart).ToString();
+        _heartCost1.text = (_level * _lovePowerLevel).ToString();
+        _touchAddHeart.text = (_strokingAddHeart).ToString();
     }
 
     void Update()
     {
         _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString("F0") + "/s";
     }
-    /// <summary> shop‚Ì‚«‚¸‚Èƒpƒ[ƒ{ƒ^ƒ“‚ÅŒÄ‚Ño‚µ </summary>
+    /// <summary> shopï¿½Ì‚ï¿½ï¿½ï¿½ï¿½Èƒpï¿½ï¿½ï¿½[ï¿½{ï¿½^ï¿½ï¿½ï¿½ÅŒÄ‚Ñoï¿½ï¿½ </summary>
     public void FriendPowerLevelUp()
     {
         if (_addHeart._heart > 0)
         {
-            //ƒ}ƒCƒiƒX‚·‚éƒRƒXƒg
+            //ï¿½}ï¿½Cï¿½iï¿½Xï¿½ï¿½ï¿½ï¿½Rï¿½Xï¿½g
             float cost;
             cost = _level * _friendPowerLevel;
             if (_addHeart._heart > cost)
@@ -48,41 +48,64 @@ public class HeartShop : MonoBehaviour
                 _addHeart._heart -= cost;
                 _friendPowerLevel += 1;
                 _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString("F0") + "/s";
-                //ƒRƒXƒg‚ª1000‚ğ’´‚¦‚½‚çk‚Å•\¦‚·‚é‚æ‚¤‚É
-                if (1000 < _level * _friendPowerLevel)
+                //ï¿½Rï¿½Xï¿½gï¿½ï¿½1000ï¿½ğ’´‚ï¿½ï¿½ï¿½ï¿½ï¿½kï¿½Å•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ‚¤ï¿½ï¿½
+                if (1000000 < _level * _friendPowerLevel)
                 {
-                    float kilo = (float)(_level * _friendPowerLevel)/1000;
-                    _heartCost0.text = "cost " + kilo + "k";
+                    float kilo = (float)(_level * _friendPowerLevel) / 1000000;
+                    _heartCost0.text = kilo + "m";
+                }
+                else if (1000 < _level * _friendPowerLevel)
+                {
+                    float kilo = (float)(_level * _friendPowerLevel) / 1000;
+                    _heartCost0.text = kilo + "k";
                 }
                 else
                 {
-                    _heartCost0.text = "cost " + (_level * _friendPowerLevel).ToString();
+                    _heartCost0.text = (_level * _friendPowerLevel).ToString();
                 }
             }
         }
     }
-    /// <summary> shop‚Ì‚ ‚Ü‚¦ƒI[ƒ‰ƒ{ƒ^ƒ“‚ÅŒÄ‚Ño‚µ </summary>
+    /// <summary> shopï¿½Ì‚ï¿½ï¿½Ü‚ï¿½ï¿½Iï¿½[ï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½ÅŒÄ‚Ñoï¿½ï¿½ </summary>
     public void LovePowerLevelUp()
     {
         if (_addHeart._heart > 0)
         {
-            //ƒ}ƒCƒiƒX‚·‚éƒRƒXƒg
+            //ï¿½}ï¿½Cï¿½iï¿½Xï¿½ï¿½ï¿½ï¿½Rï¿½Xï¿½g
             float cost;
             cost = _level * _lovePowerLevel;
             if (_addHeart._heart > cost)
             {
                 _addHeart._heart -= cost;
                 _lovePowerLevel += 1;
-                _strokingAddHeart = _lovePowerLevel * 10000;
-                _touchAddHeart.text = "+" +(_strokingAddHeart).ToString();
-                if (1000 < _level * _lovePowerLevel)
+                _strokingAddHeart = _lovePowerLevel * 100;
+                if (1000000 < _level * _lovePowerLevel)
+                {
+                    float kilo = (float)(_level * _lovePowerLevel) / 1000000;
+                    _heartCost1.text = kilo + "m";
+                }
+                else if (1000 < _level * _lovePowerLevel)
                 {
                     float kilo = (float)(_level * _lovePowerLevel) / 1000;
-                    _heartCost1.text = "cost " + kilo + "k";
+                    _heartCost1.text = kilo + "k";
                 }
                 else
                 {
-                    _heartCost1.text = "cost " + (_level * _lovePowerLevel).ToString();
+                    _heartCost1.text = (_level * _lovePowerLevel).ToString();
+                }
+                if (1000000 < _level * _strokingAddHeart)
+                {
+                    float kilo = (float)(_level * _strokingAddHeart) / 1000000;
+                    _touchAddHeart.text = kilo + "m";
+                }
+                else if (1000 < _level * _strokingAddHeart)
+                {
+                    float kilo = (float)(_level * _strokingAddHeart) / 1000;
+                    _touchAddHeart.text = kilo + "k";
+                }
+                else
+                {
+                    _touchAddHeart.text = (_level * _strokingAddHeart).ToString();
                 }
             }
         }

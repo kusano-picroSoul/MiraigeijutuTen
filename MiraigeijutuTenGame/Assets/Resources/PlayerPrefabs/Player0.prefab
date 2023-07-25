@@ -182,7 +182,7 @@ GameObject:
   - component: {fileID: 6572009295359516069}
   - component: {fileID: -7512743612703754047}
   - component: {fileID: -5314714106270314859}
-  - component: {fileID: 7287647392909965265}
+  - component: {fileID: -6667493941006100711}
   - component: {fileID: -3481892074562851049}
   m_Layer: 0
   m_Name: Player0
@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _active: 0
---- !u!114 &7287647392909965265
+--- !u!114 &-6667493941006100711
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

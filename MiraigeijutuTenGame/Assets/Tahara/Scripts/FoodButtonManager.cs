@@ -12,13 +12,13 @@ public class FoodButtonManager : MonoBehaviour
     [SerializeField] GameObject[] _riceprefabs;
     int _buttonNumber = 0;
     int _riceUnlock;
-    //ƒXƒe[ƒ^ƒXŠÇ——p•Ï”
+    //ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½Ç—ï¿½ï¿½pï¿½Ïï¿½
     int _small = 30;
     int _medium = 60;
     int _large = 90;
     [SerializeField] int _timer = 0;
     [SerializeField] List<Transform>  ricePoint = new List<Transform>();
-    //–k‘ºŒN‚ÌƒXƒNƒŠƒvƒg‚©‚çƒn[ƒg‚ğæ“¾
+    //ï¿½kï¿½ï¿½ï¿½Nï¿½ÌƒXï¿½Nï¿½ï¿½ï¿½vï¿½gï¿½ï¿½ï¿½ï¿½nï¿½[ï¿½gï¿½ï¿½ï¿½æ“¾
     [SerializeField] AddHeart _addHeart;
     void Start()
     {
@@ -30,7 +30,7 @@ public class FoodButtonManager : MonoBehaviour
         if (_timer > 300) _timer = 0;
         else if (_timer != 0) _timer++;
     }
-    //ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚²‚Æ‚Ìˆ—
+    //ï¿½{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½Æ‚Ìï¿½ï¿½ï¿½
     public void ButtonColor()
     {
         foreach (var button in _riceButton)
@@ -81,9 +81,8 @@ public class FoodButtonManager : MonoBehaviour
         foreach (var player in HomeCharactorList)
         {
             player.Hungry += _small;
-            Debug.Log(player.Hungry + "‚¨‚È‚©‚Ì”’l");
         }
-        _addHeart._heart -= 50;//ƒn[ƒg‚ª‘‚¦‚é‹LÚ‚Í‚µ‚Ä‚¢‚È‚¢‚Ì‚Å—v’ˆÓ
+        _addHeart._heart -= 50;//ï¿½nï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½Ú‚Í‚ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½Ì‚Å—vï¿½ï¿½ï¿½ï¿½
         HomeCharactorsFoodAnimationControll(ricePoint, 0);
     }
     public void ChocoButton()
@@ -102,7 +101,7 @@ public class FoodButtonManager : MonoBehaviour
     {
         GameObject rice_obj = Instantiate(_riceprefabs[2], new Vector3(0, 0, 0), Quaternion.identity);
         Destroy(rice_obj, 5f);
-        //‰”•Mƒ{ƒ^ƒ“F‚©‚µ‚±‚³ª¬@ƒn[ƒgª¬
+        //ï¿½ï¿½ï¿½Mï¿½{ï¿½^ï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½nï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½
         foreach (var player in HomeCharactorList)
         {
             if (player.Happy > 0) player.Familiarity += _medium;
@@ -114,7 +113,7 @@ public class FoodButtonManager : MonoBehaviour
     {
         GameObject rice_obj = Instantiate(_riceprefabs[3], new Vector3(0, 0, 0), Quaternion.identity);
         Destroy(rice_obj, 5f);
-        //‚¨‚È‚©ª’†@‚²‚«‚°‚ñª¬@ƒn[ƒgª’† 
+        //ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñªï¿½ï¿½@ï¿½nï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½ 
         foreach (var player in HomeCharactorList)
         {
             if (player.Hungry < 1000)
@@ -138,7 +137,7 @@ public class FoodButtonManager : MonoBehaviour
                 player.Hungry += _small;
             }
         }
-        //‚²‚«‚°‚ñª’†@‚¨‚È‚©ª¬@ƒn[ƒgª’†
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñª’ï¿½ï¿½@ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½nï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½
         _addHeart._heart -= 50;
         HomeCharactorsFoodAnimationControll(ricePoint, 0);
 
@@ -147,7 +146,7 @@ public class FoodButtonManager : MonoBehaviour
     {
         GameObject rice_obj = Instantiate(_riceprefabs[5], new Vector3(0, 0, 0), Quaternion.identity);
         Destroy(rice_obj, 5f);
-        //ƒm[ƒgƒpƒ\ƒRƒ“ƒ{ƒ^ƒ“F‚©‚µ‚±‚³ª’† ‚²‚«‚°‚ñ«¬ ƒn[ƒgª’†
+        //ï¿½mï¿½[ï¿½gï¿½pï¿½\ï¿½Rï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½ï¿½Fï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñ«ï¿½ ï¿½nï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½
         foreach (var player in HomeCharactorList)
         {
             if (player.Happy > 0)
@@ -171,7 +170,7 @@ public class FoodButtonManager : MonoBehaviour
                 player.Happy += _medium;
             }
         }
-        //‚¨‚È‚©ª‘å@‚²‚«‚°‚ñª’†@ƒn[ƒgª‘å
+        //ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñª’ï¿½ï¿½@ï¿½nï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½
         _addHeart._heart -= 10000;
         HomeCharactorsFoodAnimationControll(ricePoint, 0);
     }
@@ -187,7 +186,7 @@ public class FoodButtonManager : MonoBehaviour
                 player.Hungry += _medium;
             }
         }
-        //‚²‚«‚°‚ñª‘å@‚¨‚È‚©ª’†@ƒn[ƒgª‘å
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñª‘ï¿½@ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½nï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½
         _addHeart._heart -= 10000;
         HomeCharactorsFoodAnimationControll(ricePoint, 0);
     }
@@ -203,7 +202,7 @@ public class FoodButtonManager : MonoBehaviour
                 player.Happy -= _small;
             }
         }
-        //‚©‚µ‚±‚³ª‘å@‚²‚«‚°‚ñ«¬@ƒn[ƒgª‘å
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ñ«ï¿½ï¿½@ï¿½nï¿½[ï¿½gï¿½ï¿½ï¿½ï¿½
         HomeCharactorsFoodAnimationControll(ricePoint, 1);
     }
 }

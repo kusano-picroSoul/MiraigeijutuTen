@@ -12,19 +12,19 @@ public class LevelManager : MonoBehaviour
 {
     private static LevelManager instance;
     /// <summary>
-    /// StartˆÈ~‚ÅQÆ‰Â”\BgetOnly
+    /// Startï¿½È~ï¿½ÅQï¿½Æ‰Â”\ï¿½BgetOnly
     /// </summary>
     public static LevelManager Instance => instance;
-    //Œ»İ‚Ì‚·‚×‚Ä‚ÌƒLƒƒƒ‰ƒNƒ^[ƒŠƒXƒg
+    //ï¿½ï¿½ï¿½İ‚Ì‚ï¿½ï¿½×‚Ä‚ÌƒLï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½ï¿½ï¿½Xï¿½g
     public static List<PlayerStatus> AllCharactorList = new List<PlayerStatus>();
 
     private const int MAX_HOME_CHARACTOR = 5;
-    //Œ»İ‚Ì‘I‘ğ‚³‚ê‚Ä‚¢‚éƒLƒƒƒ‰ƒNƒ^[
+    //ï¿½ï¿½ï¿½İ‚Ì‘Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[
     public static List<PlayerStatus> HomeCharactorList = new List<PlayerStatus>();
-    //ƒLƒƒƒ‰ƒNƒ^[•\¦‡”Ô‚ğŠÇ—‚·‚éƒŠƒXƒg
+    //ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½Ç—ï¿½ï¿½ï¿½ï¿½éƒŠï¿½Xï¿½g
     public List<SortOrderClass> SortOrderList = new List<SortOrderClass>();
     /// <summary>
-    /// ƒrƒbƒgƒtƒ‰ƒOŒ^‚Ìƒt[ƒhƒŠƒXƒg(enum)
+    /// ï¿½rï¿½bï¿½gï¿½tï¿½ï¿½ï¿½Oï¿½^ï¿½Ìƒtï¿½[ï¿½hï¿½ï¿½ï¿½Xï¿½g(enum)
     /// </summary>
     [Flags]
     public enum FoodFlags
@@ -70,9 +70,9 @@ public class LevelManager : MonoBehaviour
             Debug.Log(AllCharactorList[0].Happy);
         }
     }
-    ////ƒ‰ƒ“ƒ_ƒ€‚Åd•¡‚È‚µ‚Ì5l‚ğ‘I‘ğ
+    ////ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Ådï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½5ï¿½lï¿½ï¿½Iï¿½ï¿½
     private List<int> randomIndex = new();
-    void SelectRandomPlayer()
+    public void SelectRandomPlayer()
     {
         if(HomeCharactorList.Count > 0) 
         {
@@ -124,7 +124,7 @@ public class LevelManager : MonoBehaviour
         HomeCharactorList.Clear();
     }
     /// <summary>
-    /// ƒvƒŒƒCƒ„[ƒŒƒCƒ„[‚ÌŠÇ—B
+    /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÌŠÇ—ï¿½ï¿½B
     /// </summary>
     public class SortOrderClass
     {

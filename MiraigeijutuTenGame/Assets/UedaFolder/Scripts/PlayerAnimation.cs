@@ -9,28 +9,28 @@ using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine.UIElements;
 using Unity.VisualScripting;
 /// <summary>
-/// ƒLƒƒƒ‰ƒNƒ^[View‚ğŠÇ—‚·‚éƒXƒNƒŠƒvƒg
+/// ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½^ï¿½[Viewï¿½ï¿½ï¿½Ç—ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Nï¿½ï¿½ï¿½vï¿½g
 /// </summary>
 public class PlayerAnimation : MonoBehaviour
 {
 
     /// <summary>
-    /// ƒRƒ“ƒfƒBƒVƒ‡ƒ“•Ï‰»‚É‚æ‚é•\î‚Ì•ÏX
+    /// ï¿½Rï¿½ï¿½ï¿½fï¿½Bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½Ï‰ï¿½ï¿½É‚ï¿½ï¿½\ï¿½ï¿½Ì•ÏX
     /// </summary>
-    [Tooltip("•W€‚Ì–Ú0,ÎŠç‚Ì–Ú:1,•Â‚¶‚½–Ú:2,‚ ‚Ù‚È–Ú:3")]
+    [Tooltip("ï¿½Wï¿½ï¿½ï¿½Ì–ï¿½0,ï¿½ÎŠï¿½Ì–ï¿½:1,ï¿½Â‚ï¿½ï¿½ï¿½ï¿½ï¿½:2,ï¿½ï¿½ï¿½Ù‚È–ï¿½:3")]
     [SerializeField]
     GameObject[] _eyeSprites;
-    [Tooltip("•W€‚ÌŒû0,ŠJ‚¢‚½Œû:1,“{‚Á‚½Œû:2,‚ ‚Ù‚ÈŒû:3")]
+    [Tooltip("ï¿½Wï¿½ï¿½ï¿½ÌŒï¿½0,ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:1,ï¿½{ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:2,ï¿½ï¿½ï¿½Ù‚ÈŒï¿½:3")]
     [SerializeField]
     GameObject[] _mouseSprites;
-    //‚·‚×‚Ä‚Ì•\î‚ğƒŠƒZƒbƒg‚·‚éB
+    //ï¿½ï¿½ï¿½×‚Ä‚Ì•\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½gï¿½ï¿½ï¿½ï¿½B
     private bool ResetSprite()
     {
         for (int i = 0; i < _eyeSprites.Length; i++)
         {
             if(_eyeSprites[i] == null )
             {
-                Debug.LogError("•\î·•ª‚ª‚ ‚è‚Ü‚¹‚ñ");
+                //Debug.LogError("ï¿½\ï¿½î·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½");
                 return false;
             }
             _eyeSprites[i]?.SetActive(false);
@@ -75,7 +75,7 @@ public class PlayerAnimation : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ì“®‚«AƒAƒjƒ[ƒVƒ‡ƒ“
+    /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ì“ï¿½ï¿½ï¿½ï¿½Aï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½
     /// </summary>
     float _moveRange = 2.5f;
     float _rotateDuration = 1f;
@@ -91,16 +91,18 @@ public class PlayerAnimation : MonoBehaviour
         cts = new CancellationTokenSource();
         token = cts.Token;
         //token = this.GetCancellationTokenOnDestroy();
-        MoveAnimation(token);
+        MoveAnimation();
     }
-    private async void MoveAnimation(CancellationToken token)
+    private async void MoveAnimation()
     {
         while (_isAnimation)
         { 
             await RandomWalk(token);
+            if (!_isAnimation) break;
             await UniTask.Delay((int)Random.Range(3f, 10f) * 1000 ,cancellationToken: token); 
             //print("MoveAnimation");
         }
+        Debug.Log("animationEND");
     }
     
     public async UniTask RandomWalk(CancellationToken token) 
@@ -188,6 +190,7 @@ public class PlayerAnimation : MonoBehaviour
     public void ActiveAnimation()
     {
         _isAnimation = true;
+        MoveAnimation();
     }
 
 
