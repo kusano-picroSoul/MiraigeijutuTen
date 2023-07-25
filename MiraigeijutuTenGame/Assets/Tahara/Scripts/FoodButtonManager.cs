@@ -1,3 +1,7 @@
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static LevelManager;
@@ -12,6 +16,8 @@ public class FoodButtonManager : MonoBehaviour
     int _small = 30;
     int _medium = 60;
     int _large = 90;
+    [SerializeField] int _timer = 0;
+    [SerializeField] List<Transform>  ricePoint = new List<Transform>();
     //北村君のスクリプトからハートを取得
     [SerializeField] AddHeart _addHeart;
     void Start()
@@ -21,6 +27,8 @@ public class FoodButtonManager : MonoBehaviour
     private void Update()
     {
         ButtonColor();
+        if (_timer > 300) _timer = 0;
+        else if (_timer != 0) _timer++;
     }
     //ボタンが押されたごとの処理
     public void ButtonColor()
@@ -29,130 +37,173 @@ public class FoodButtonManager : MonoBehaviour
         { 
                 button.interactable = false;
         }
-        if (_addHeart._heart > 50)
+        if (_addHeart._heart > 50 && _timer == 0)
         {
             _riceButton[0].interactable = true;
             _riceButton[1].interactable = true;
             _riceButton[2].interactable = true;
         }
-        if (_addHeart._heart > 150)
+        if (_addHeart._heart > 150 && _timer == 0)
         {
             _riceButton[3].interactable = true;
             _riceButton[4].interactable = true;
             _riceButton[5].interactable = true;
         }
-        if (_addHeart._heart > 300)
+        if (_addHeart._heart > 300 && _timer == 0)
         {
             _riceButton[6].interactable = true;
             _riceButton[7].interactable = true;
             _riceButton[8].interactable = true;
         }
     }
+    public void HomeCharactorsFoodAnimationControll(List<Transform> foodPoint, int mode)
+    {
+        for (int i = 0; i < HomeCharactorList.Count; i++)
+        {
+            if (mode == 0 && HomeCharactorList[i].Hungry < 1000) FoodAnimationControll(i, foodPoint[i]);
+            else if (mode == 1 && HomeCharactorList[i].Happy > 0) FoodAnimationControll(i, foodPoint[i]);
+        }
+        _timer++;
+    }
+    public async void FoodAnimationControll(int index , Transform point)
+    {
+        HomeCharactorList[index].gameObject.GetComponent<PlayerAnimation>().StopAmnimation();
+        await HomeCharactorList[index].transform.DOMove(point.position, 1f)
+                .AsyncWaitForCompletion();
+        LevelManager.Instance.ChangeSortingLayer("Food");
+        await UniTask.Delay(5000);
+        HomeCharactorList[index].gameObject.GetComponent<PlayerAnimation>().ActiveAnimation();
+    }
     public void RiceButton()
     {
-        GameObject rice_obj = Instantiate(_riceprefabs[0], new Vector3(0, 0, 0),Quaternion.identity);
-        Destroy(rice_obj, 3f);
-        foreach(var player in HomeCharactorList)
+        GameObject rice_obj = Instantiate(_riceprefabs[0], new Vector3(0, 0, 0), Quaternion.identity);
+        Destroy(rice_obj, 5f);
+        foreach (var player in HomeCharactorList)
         {
             player.Hungry += _small;
             Debug.Log(player.Hungry + "おなかの数値");
         }
         _addHeart._heart -= 50;//ハートが増える記載はしていないので要注意
-        //Debug.Log(_addHeart._heart);
+        HomeCharactorsFoodAnimationControll(ricePoint, 0);
     }
     public void ChocoButton()
     {
         GameObject rice_obj = Instantiate(_riceprefabs[1], new Vector3(0, 0, 0), Quaternion.identity);
-        Destroy(rice_obj, 3f);
+        Destroy(rice_obj, 5f);
         foreach (var player in HomeCharactorList)
         {
-            player.Happy += _small;
+            if (player.Hungry < 1000) player.Happy += _small;
             Debug.Log(player.Happy);
         }
         _addHeart._heart -= 50;
-        
+        HomeCharactorsFoodAnimationControll(ricePoint, 0);
     }
     public void StudyButton()
     {
         GameObject rice_obj = Instantiate(_riceprefabs[2], new Vector3(0, 0, 0), Quaternion.identity);
-        Destroy(rice_obj, 3f);
+        Destroy(rice_obj, 5f);
         //鉛筆ボタン：かしこさ↑小　ハート↑小
         foreach (var player in HomeCharactorList)
         {
-            player.Familiarity += _medium;
+            if (player.Happy > 0) player.Familiarity += _medium;
         }
         _addHeart._heart -= 50;
+        HomeCharactorsFoodAnimationControll(ricePoint, 1);
     }
     public void PizaButtonUnlock()
     {
         GameObject rice_obj = Instantiate(_riceprefabs[3], new Vector3(0, 0, 0), Quaternion.identity);
-        Destroy(rice_obj, 3f);
+        Destroy(rice_obj, 5f);
         //おなか↑中　ごきげん↑小　ハート↑中 
         foreach (var player in HomeCharactorList)
         {
-            player.Hungry += _medium;
-            player.Happy += _small;
+            if (player.Hungry < 1000)
+            {
+                player.Hungry += _medium;
+                player.Happy += _small;
+            }
         }
         _addHeart._heart -= 50;
+        HomeCharactorsFoodAnimationControll(ricePoint, 0);
     }
     public void IceButtonUnlock()
     {
         GameObject rice_obj = Instantiate(_riceprefabs[4], new Vector3(0, 0, 0), Quaternion.identity);
-        Destroy(rice_obj, 3f);
+        Destroy(rice_obj, 5f);
         foreach (var player in HomeCharactorList)
         {
-            player.Happy += _medium;
-            player.Hungry += _small;
+            if (player.Hungry < 1000)
+            {
+                player.Happy += _medium;
+                player.Hungry += _small;
+            }
         }
         //ごきげん↑中　おなか↑小　ハート↑中
         _addHeart._heart -= 50;
-        
+        HomeCharactorsFoodAnimationControll(ricePoint, 0);
+
     }
     public void PCButtonUnlock()
     {
         GameObject rice_obj = Instantiate(_riceprefabs[5], new Vector3(0, 0, 0), Quaternion.identity);
-        Destroy(rice_obj, 3f);
+        Destroy(rice_obj, 5f);
         //ノートパソコンボタン：かしこさ↑中 ごきげん↓小 ハート↑中
         foreach (var player in HomeCharactorList)
         {
-            player.Familiarity += _medium;
-            player.Happy -= _small;
+            if (player.Happy > 0)
+            {
+                player.Familiarity += _medium;
+                player.Happy -= _small;
+            }
         }
         _addHeart._heart -= 50;
+        HomeCharactorsFoodAnimationControll(ricePoint, 1);
     }
     public void KathuCurryButtonUnlock()
     {
         GameObject rice_obj = Instantiate(_riceprefabs[6], new Vector3(0, 0, 0), Quaternion.identity);
-        Destroy(rice_obj, 3f);
+        Destroy(rice_obj, 5f);
         foreach (var player in HomeCharactorList)
         {
-            player.Hungry += _large;
-            player.Happy += _medium;
+            if (player.Hungry < 1000)
+            {
+                player.Hungry += _large;
+                player.Happy += _medium;
+            }
         }
         //おなか↑大　ごきげん↑中　ハート↑大
         _addHeart._heart -= 10000;
+        HomeCharactorsFoodAnimationControll(ricePoint, 0);
     }
     public void CakeButtonUnlock()
     {
         GameObject rice_obj = Instantiate(_riceprefabs[7], new Vector3(0, 0, 0), Quaternion.identity);
-        Destroy(rice_obj, 3f);
+        Destroy(rice_obj, 5f);
         foreach (var player in HomeCharactorList)
         {
-            player.Happy += _large;
-            player.Hungry += _medium;
+            if (player.Hungry < 1000)
+            {
+                player.Happy += _large;
+                player.Hungry += _medium;
+            }
         }
         //ごきげん↑大　おなか↑中　ハート↑大
         _addHeart._heart -= 10000;
+        HomeCharactorsFoodAnimationControll(ricePoint, 0);
     }
     public void NutoritionFoodButtonUnlock()
     {
         GameObject rice_obj = Instantiate(_riceprefabs[8], new Vector3(0, 0, 0), Quaternion.identity);
-        Destroy(rice_obj, 3f);
+        Destroy(rice_obj, 5f);
         foreach (var player in HomeCharactorList)
         {
-            player.Familiarity += _large;
-            player.Happy -= _small;
+            if (player.Happy > 0)
+            {
+                player.Familiarity += _large;
+                player.Happy -= _small;
+            }
         }
         //かしこさ↑大　ごきげん↓小　ハート↑大
+        HomeCharactorsFoodAnimationControll(ricePoint, 1);
     }
 }

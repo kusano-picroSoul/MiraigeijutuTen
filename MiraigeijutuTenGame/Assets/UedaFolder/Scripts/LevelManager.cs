@@ -156,6 +156,10 @@ public class LevelManager : MonoBehaviour
             {
                 obj._nextPosition = obj._gameobject.GetComponent<PlayerAnimation>().randomPosition;
             }
+            if(name == "Food")
+            {
+                obj._nextPosition = obj._gameobject.transform.position;
+            }
         }
         //print("ChangeSortingLayer");
         SortOrderList.Sort((a, b) => a._nextPosition.y.CompareTo( b._nextPosition.y));
