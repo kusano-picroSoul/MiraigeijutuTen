@@ -11,7 +11,6 @@ public class StrokingController : PlayerPresenter
     HeartShop _heartShop;
     AddHeart _add;
     int heart;
-    float Heart;
     PlayerStatus _status;
     private void Start()
     {
@@ -31,14 +30,13 @@ public class StrokingController : PlayerPresenter
         _jump.Play("JumpMotion");
         _status.Happy += 2;
         heart = _heartShop._lovePowerLevel;
-        Heart = _add._heart;
         if (heart < 500)
         {
-            Heart += 1;
+            _add._heart += 1;
         }
         else
         {
-            Heart += 2;
+            _add._heart += 2;
         }
     }
 
