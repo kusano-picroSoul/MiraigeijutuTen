@@ -22,7 +22,10 @@ public class AddHeart : MonoBehaviour
     
     //場にいるコンディションがノーマルなキャラの数
     int _normalConditionPlayerCount = 0;
-    
+
+    //場にいるコンディションがハッピーなキャラの数
+    int _happyConditionPlayerCount = 0;
+
     //Hungryの合計値
     int _hungryTotalValue;
     
@@ -47,6 +50,10 @@ public class AddHeart : MonoBehaviour
                 {
                     _normalConditionPlayerCount++;
                 }
+                if (charctor.PlayerCondition.Value == Condition.Happy)
+                {
+                    _happyConditionPlayerCount++;
+                }
                 //場にいるキャラのステータスの合計値を入れる
                 _hungryTotalValue += charctor.Hungry;
                 _happyTotalValue += charctor.Happy;
@@ -54,22 +61,29 @@ public class AddHeart : MonoBehaviour
                 _familiarityTotalValue += charctor.Familiarity;
             }
 
-            //実装キャラの数×場にいるコンディションがノーマルなキャラの数
-            _addHearts = LevelManager.AllCharactorList.Count * _normalConditionPlayerCount *
-                //×場にいるキャラのステータスの合計値×0.01
-                ((_hungryTotalValue + _happyTotalValue + _smartTotalValue + _familiarityTotalValue) * 0.01f) * 
-                //×きずなパワーレベル
-                _heartShop._friendPowerLevel *
-                //×倍率
-                0.1f;
+            
+            _addHearts =
+                //1 + (実装キャラの数/10)
+                meg(LevelManager.AllCharactorList.Count)
+
+                //×1 + (場にいるコンディションがノーマルなキャラの数/10)
+                * meg(_normalConditionPlayerCount)
+
+                //×1 + (場にいるコンディションがハッピーなキャラの数/10)
+                * meg(_happyConditionPlayerCount)
+
+                //×1 + (場にいるキャラのステータスの合計値/100)
+                * meg01(_hungryTotalValue + _happyTotalValue + _smartTotalValue + _familiarityTotalValue)
+
+                //×1 + (きずなパワーレベル/100)
+                * meg01(_heartShop._friendPowerLevel);
+
+            //例　_addHearts = 1.6 * 1.0 * 1.5 * 1.90 * 1.01 
 
             //ハートの総量+0.1秒間で増えるハートの量
             _heart += _addHearts;
             int IntHeart = (int)_heart;
             _heartUI.text = IntHeart.ToString();
-
-            Debug.Log(LevelManager.AllCharactorList.Count + " " + _normalConditionPlayerCount + " " +
-                (_hungryTotalValue + _happyTotalValue + _smartTotalValue + _familiarityTotalValue)*0.01f);
 
             //数値の初期化
             _normalConditionPlayerCount = 0;
@@ -82,4 +96,17 @@ public class AddHeart : MonoBehaviour
             _timer = 0;
         }
     }
+    /// <summary>countを1.(int count)で返す </summary>
+    /// <param name="count"></param>
+    /// <returns></returns>
+    float meg(int count)
+    {
+        return 1 + (float)count / 10.0f;
+    }
+
+    float meg01(int count)
+    {
+        return 1 + (float)count / 100.0f;
+    }
+
 }
