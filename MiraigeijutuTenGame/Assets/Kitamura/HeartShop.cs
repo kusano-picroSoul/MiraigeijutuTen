@@ -26,14 +26,14 @@ public class HeartShop : MonoBehaviour
     void Start()
     {
         _heartCost0.text = "cost " + (_level * _friendPowerLevel).ToString();
-        _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString("F2") + "/s";
+        _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString("F0") + "/s";
         _heartCost1.text = "cost " + (_level * _lovePowerLevel).ToString();
         _touchAddHeart.text = "+" + (_strokingAddHeart).ToString();
     }
 
     void Update()
     {
-        _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString("F2") + "/s";
+        _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString("F0") + "/s";
     }
     /// <summary> shopのきずなパワーボタンで呼び出し </summary>
     public void FriendPowerLevelUp()
@@ -47,8 +47,17 @@ public class HeartShop : MonoBehaviour
             {
                 _addHeart._heart -= cost;
                 _friendPowerLevel += 1;
-                _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString("F2") + "/s";
-                _heartCost0.text = "cost " + (_level * _friendPowerLevel).ToString();
+                _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString("F0") + "/s";
+                //コストが1000を超えたらkで表示するように
+                if (1000 < _level * _friendPowerLevel)
+                {
+                    float kilo = (float)(_level * _friendPowerLevel)/1000;
+                    _heartCost0.text = "cost " + kilo + "k";
+                }
+                else
+                {
+                    _heartCost0.text = "cost " + (_level * _friendPowerLevel).ToString();
+                }
             }
         }
     }
@@ -66,7 +75,15 @@ public class HeartShop : MonoBehaviour
                 _lovePowerLevel += 1;
                 _strokingAddHeart = _lovePowerLevel * 10000;
                 _touchAddHeart.text = "+" +(_strokingAddHeart).ToString();
-                _heartCost1.text = "cost " + (_level * _lovePowerLevel ).ToString();
+                if (1000 < _level * _lovePowerLevel)
+                {
+                    float kilo = (float)(_level * _lovePowerLevel) / 1000;
+                    _heartCost1.text = "cost " + kilo + "k";
+                }
+                else
+                {
+                    _heartCost1.text = "cost " + (_level * _lovePowerLevel).ToString();
+                }
             }
         }
     }
