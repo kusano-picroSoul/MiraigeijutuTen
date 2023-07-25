@@ -4,7 +4,7 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StrokingController : PlayerPresenter
+public class StrokingController : MonoBehaviour
 {
     private PlayerAnimation _playerAnimation;
     Animator _jump;
@@ -23,7 +23,7 @@ public class StrokingController : PlayerPresenter
     {
         _playerAnimation.HappySprite();
     }
-    private new void OnMouseUp()
+    private void OnMouseUp()
     {
         _playerAnimation.NormalSprite();
         _jump.Play("JumpMotion");

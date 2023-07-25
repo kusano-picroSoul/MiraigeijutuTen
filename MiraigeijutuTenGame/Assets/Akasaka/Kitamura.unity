@@ -239,17 +239,9 @@ MonoBehaviour:
   _touchAddHeart: {fileID: 774793709}
   _heartCost0: {fileID: 504307624}
   _heartCost1: {fileID: 1562341268}
-  _rice: 0
-  _chocolateBar: 0
-  _protein: 0
-  _pizzaAndCola: 0
-  _ice: 0
-  _saladChicken: 0
-  _katsuCarry: 0
-  _birthdayCake: 0
-  _vitaminFood: 0
   _friendPowerLevel: 1
   _lovePowerLevel: 1
+  _strokingAddHeart: 10000
 --- !u!4 &227503232
 Transform:
   m_ObjectHideFlags: 0
@@ -1344,7 +1336,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &2037343404
+--- !u!1001 &1935635328
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1445,11 +1437,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2313386153408615016, guid: dc1535f949498e842abb8a302a37ed7a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 3.36
+      value: 2.25
       objectReference: {fileID: 0}
     - target: {fileID: 2313386153408615016, guid: dc1535f949498e842abb8a302a37ed7a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 8.72
+      value: 24.92
       objectReference: {fileID: 0}
     - target: {fileID: 2313386153408615016, guid: dc1535f949498e842abb8a302a37ed7a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
