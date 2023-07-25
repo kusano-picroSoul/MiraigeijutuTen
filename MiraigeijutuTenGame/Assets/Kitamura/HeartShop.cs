@@ -37,7 +37,13 @@ public class HeartShop : MonoBehaviour
     public int _lovePowerLevel = 1;
 
     //コスト倍率（仮）
-    int _level = 500;
+    int _level = 5000;
+
+    void Start()
+    {
+        _heartCost0.text = "cost " + (_level * _friendPowerLevel).ToString();
+        _heartCost1.text = "cost " + (_level * _lovePowerLevel).ToString();
+    }
     /// <summary> shopのきずなパワーボタンで呼び出し </summary>
     public void FriendPowerLevelUp()
     {
@@ -62,13 +68,13 @@ public class HeartShop : MonoBehaviour
         {
             //マイナスするコスト
             float cost;
-            cost = _level * _lovePowerLevel * _addHeart._addHearts;
+            cost = _level * _lovePowerLevel;
             if (_addHeart._heart > cost)
             {
                 _addHeart._heart -= cost;
                 _lovePowerLevel += 1;
                 _touchAddHeart.text = "+" +(_lovePowerLevel * 10).ToString();
-                _heartCost1.text = "cost " + (_level * _lovePowerLevel * _addHeart._addHearts).ToString();
+                _heartCost1.text = "cost " + (_level * _lovePowerLevel ).ToString();
             }
         }
     }
