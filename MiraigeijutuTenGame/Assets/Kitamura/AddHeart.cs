@@ -12,7 +12,7 @@ public class AddHeart : MonoBehaviour
     /// <summary> ハートの総数 </summary>
     public float _heart = 50;
 
-    //0.1秒間で増えるハートの数
+    /// <summary>0.1秒間で増えるハートの数</summary>
     public float _addHearts;
 
     float _timer;
@@ -61,7 +61,6 @@ public class AddHeart : MonoBehaviour
                 _familiarityTotalValue += charctor.Familiarity;
             }
 
-            
             _addHearts =
                 //1 + (実装キャラの数/10)
                 meg(LevelManager.AllCharactorList.Count)
@@ -80,7 +79,7 @@ public class AddHeart : MonoBehaviour
 
             //例　_addHearts = 1.6 * 1.0 * 1.5 * 1.90 * 1.01 
 
-            //ハートの総量+0.1秒間で増えるハートの量
+            //ハートの総量+=0.1秒間で増えるハートの量
             _heart += _addHearts;
             int IntHeart = (int)_heart;
             _heartUI.text = IntHeart.ToString();

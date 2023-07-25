@@ -239,17 +239,9 @@ MonoBehaviour:
   _touchAddHeart: {fileID: 774793709}
   _heartCost0: {fileID: 504307624}
   _heartCost1: {fileID: 1562341268}
-  _rice: 0
-  _chocolateBar: 0
-  _protein: 0
-  _pizzaAndCola: 0
-  _ice: 0
-  _saladChicken: 0
-  _katsuCarry: 0
-  _birthdayCake: 0
-  _vitaminFood: 0
   _friendPowerLevel: 1
   _lovePowerLevel: 1
+  _strokingAddHeart: 10000
 --- !u!4 &227503232
 Transform:
   m_ObjectHideFlags: 0

@@ -12,24 +12,6 @@ public class HeartShop : MonoBehaviour
     [SerializeField] Text _touchAddHeart;
     [SerializeField] Text _heartCost0;
     [SerializeField] Text _heartCost1;
-    [Header("foods")]
-    [SerializeField] bool _rice;
-    [SerializeField] bool _chocolateBar;
-    [SerializeField] bool _protein;
-    [SerializeField] bool _pizzaAndCola;
-    [SerializeField] bool _ice;
-    [SerializeField] bool _saladChicken;
-    [SerializeField] bool _katsuCarry;
-    [SerializeField] bool _birthdayCake;
-    [SerializeField] bool _vitaminFood;
-
-    //変動する値
-    //小
-    float _small = 1.1f;
-    //中
-    float _mid = 1.2f;
-    //大
-    float _large = 1.3f;
 
     /// <summary> きずなパワーのレベル　※秒間きずなパワーレベル×１０のハートをゲット </summary>
     public int _friendPowerLevel = 1;
@@ -39,12 +21,14 @@ public class HeartShop : MonoBehaviour
     //コスト倍率（仮）
     int _level = 500;
 
+    public int _strokingAddHeart = 10000;
+
     void Start()
     {
         _heartCost0.text = "cost " + (_level * _friendPowerLevel).ToString();
         _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString("F2") + "/s";
         _heartCost1.text = "cost " + (_level * _lovePowerLevel).ToString();
-        _touchAddHeart.text = "+" + (_lovePowerLevel * 10).ToString();
+        _touchAddHeart.text = "+" + (_strokingAddHeart).ToString();
     }
 
     void Update()
@@ -80,7 +64,8 @@ public class HeartShop : MonoBehaviour
             {
                 _addHeart._heart -= cost;
                 _lovePowerLevel += 1;
-                _touchAddHeart.text = "+" +(_lovePowerLevel * 10).ToString();
+                _strokingAddHeart = _lovePowerLevel * 10000;
+                _touchAddHeart.text = "+" +(_strokingAddHeart).ToString();
                 _heartCost1.text = "cost " + (_level * _lovePowerLevel ).ToString();
             }
         }
