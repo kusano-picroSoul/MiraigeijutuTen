@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -81,12 +82,21 @@ public class FoodButtonManager : MonoBehaviour
     }
     public async void FoodAnimationControll(int index , Transform point)
     {
+        StartCoroutine(Eat());
         HomeCharactorList[index].gameObject.GetComponent<PlayerAnimation>().StopAmnimation();
         await HomeCharactorList[index].transform.DOMove(point.position, 1f)
                 .AsyncWaitForCompletion();
         LevelManager.Instance.ChangeSortingLayer("Food");
         await UniTask.Delay(5000);
         HomeCharactorList[index].gameObject.GetComponent<PlayerAnimation>().ActiveAnimation();
+    }
+    IEnumerator Eat()
+    {
+        yield return new WaitForSeconds(1f);
+        foreach (var player in HomeCharactorList)
+        {
+            player.GetComponent<Animator>().Play("Eat");
+        }
     }
     public void RiceButton()
     {

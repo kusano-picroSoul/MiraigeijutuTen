@@ -12,7 +12,7 @@ public class StatusRandomDown : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if (timer > 30)
+        if (timer > 60)
         {
             foreach (var charctor in LevelManager.HomeCharactorList)
             {

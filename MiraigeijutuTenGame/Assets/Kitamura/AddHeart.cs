@@ -59,13 +59,13 @@ public class AddHeart : MonoBehaviour
 
             _addHearts =
                 //1 + (�����L�����̐�/10)
-                (LevelManager.AllCharactorList.Count / 5)
+                ((LevelManager.AllCharactorList.Count / 5) + 1)
 
                 //�~1 + (��ɂ���R���f�B�V�������m�[�}���ȃL�����̐�/10)
-                * _normalConditionPlayerCount
+                * (_normalConditionPlayerCount + _happyConditionPlayerCount)
 
                 //�~1 + (��ɂ���L�����̃X�e�[�^�X�̍��v�l/100)
-                * ((_hungryTotalValue + _happyTotalValue + _smartTotalValue + _familiarityTotalValue + 1) / 750)
+                * ((_hungryTotalValue + _happyTotalValue + _smartTotalValue + _familiarityTotalValue + 1) / (150 * LevelManager.HomeCharactorList.Count))
 
                 //�~1 + (�����ȃp���[���x��/100)
                 * _heartShop._friendPowerLevel;
