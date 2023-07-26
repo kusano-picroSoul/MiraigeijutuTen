@@ -33,7 +33,20 @@ public class HeartShop : MonoBehaviour
 
     void Update()
     {
-        _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString("F0") + "/s";
+        if (1000000 < _addHeart._addHearts * 10)
+        {
+            int kilo = (int)(_addHeart._addHearts * 10) / 1000000;
+            _addHeartSeconds.text = kilo + "m/s";
+        }
+        else if (1000 < _addHeart._addHearts * 10)
+        {
+            int kilo = (int)(_addHeart._addHearts * 10) / 1000;
+            _addHeartSeconds.text = kilo + "k/s";
+        }
+        else
+        {
+            _addHeartSeconds.text = ((int)(_addHeart._addHearts * 10)).ToString() + "/s";
+        }
     }
     /// <summary> shop�̂����ȃp���[�{�^���ŌĂяo�� </summary>
     public void FriendPowerLevelUp()
@@ -47,16 +60,15 @@ public class HeartShop : MonoBehaviour
             {
                 _addHeart._heart -= cost;
                 _friendPowerLevel += 1;
-                _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString("F0") + "/s";
                 //�R�X�g��1000�𒴂�����k�ŕ\������悤��
                 if (1000000 < _level * _friendPowerLevel)
                 {
-                    float kilo = (float)(_level * _friendPowerLevel) / 1000000;
+                    int kilo = (int)(_level * _friendPowerLevel) / 1000000;
                     _heartCost0.text = kilo + "m";
                 }
                 else if (1000 < _level * _friendPowerLevel)
                 {
-                    float kilo = (float)(_level * _friendPowerLevel) / 1000;
+                    int kilo = (int)(_level * _friendPowerLevel) / 1000;
                     _heartCost0.text = kilo + "k";
                 }
                 else
@@ -81,12 +93,12 @@ public class HeartShop : MonoBehaviour
                 _strokingAddHeart = _lovePowerLevel * 100;
                 if (1000000 < _level * _lovePowerLevel)
                 {
-                    float kilo = (float)(_level * _lovePowerLevel) / 1000000;
+                    int kilo = (int)(_level * _lovePowerLevel) / 1000000;
                     _heartCost1.text = kilo + "m";
                 }
                 else if (1000 < _level * _lovePowerLevel)
                 {
-                    float kilo = (float)(_level * _lovePowerLevel) / 1000;
+                    int kilo = (int)(_level * _lovePowerLevel) / 1000;
                     _heartCost1.text = kilo + "k";
                 }
                 else
@@ -95,12 +107,12 @@ public class HeartShop : MonoBehaviour
                 }
                 if (1000000 < _level * _strokingAddHeart)
                 {
-                    float kilo = (float)(_level * _strokingAddHeart) / 1000000;
+                    int kilo = (int)(_level * _strokingAddHeart) / 1000000;
                     _touchAddHeart.text = kilo + "m";
                 }
                 else if (1000 < _level * _strokingAddHeart)
                 {
-                    float kilo = (float)(_level * _strokingAddHeart) / 1000;
+                    int kilo = (int)(_level * _strokingAddHeart) / 1000;
                     _touchAddHeart.text = kilo + "k";
                 }
                 else
