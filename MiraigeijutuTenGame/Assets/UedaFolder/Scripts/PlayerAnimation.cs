@@ -17,61 +17,68 @@ public class PlayerAnimation : MonoBehaviour
     /// <summary>
     /// �R���f�B�V�����ω��ɂ��\��̕ύX
     /// </summary>
+    [SerializeField]
+    SpriteRenderer _eyeSpriteRenderer;
+    [SerializeField]
+    SpriteRenderer _mouseSpriteRenderer;
     [Tooltip("�W���̖�0,�Ί�̖�:1,������:2,���قȖ�:3")]
     [SerializeField]
-    GameObject[] _eyeSprites;
+    Sprite[] _eyeSprites;
     [Tooltip("�W���̌�0,�J������:1,�{������:2,���قȌ�:3")]
     [SerializeField]
-    GameObject[] _mouseSprites;
+    Sprite[] _mouseSprites;
     //���ׂĂ̕\������Z�b�g����B
+    Vector3 _defaltSacale = Vector3.zero;
+    private void Start()
+    {
+        _defaltSacale = transform.localScale;
+    }
     private bool ResetSprite()
     {
         for (int i = 0; i < _eyeSprites.Length; i++)
         {
-            if(_eyeSprites[i] == null )
+            if (_eyeSprites[i] == null)
             {
                 //Debug.LogError("�\���������܂���");
                 return false;
             }
-            _eyeSprites[i]?.SetActive(false);
-            _mouseSprites[i]?.SetActive(false);
         }
         return true;
     }
     public void NormalSprite()
     {
-        if(!ResetSprite()){ return; }
-        _eyeSprites[0]?.SetActive(true);
-        _mouseSprites[0]?.SetActive(true);
+        if (!ResetSprite()) { return; }
+        _eyeSpriteRenderer.sprite = _eyeSprites[0];
+        _mouseSpriteRenderer.sprite = _mouseSprites[0];
     }
     public void AngrySprite()
     {
         if(!ResetSprite()){ return; }
-        _eyeSprites[0]?.SetActive(true);
-        _mouseSprites[2]?.SetActive(true);
+        _eyeSpriteRenderer.sprite = _eyeSprites[0];
+        _mouseSpriteRenderer.sprite = _mouseSprites[2];
     }
     public void HappySprite()
     {
         if(!ResetSprite()){ return; }
-        _eyeSprites[1]?.SetActive(true);
-        _mouseSprites[1]?.SetActive(true);
+        _eyeSpriteRenderer.sprite = _eyeSprites[1];
+        _mouseSpriteRenderer.sprite = _mouseSprites[1];
     }
     public void HungrySprite()
     {
         if(!ResetSprite()){ return; }
-        _eyeSprites[2]?.SetActive(true);
-        _mouseSprites[1]?.SetActive(true);
+        _eyeSpriteRenderer.sprite = _eyeSprites[2];
+        _mouseSpriteRenderer.sprite = _mouseSprites[1];
     }
     public void TiredSprite()
     {
         if(!ResetSprite()){ return; }
-        _eyeSprites[2]?.SetActive(true);
-        _mouseSprites[0]?.SetActive(true);
+        _eyeSpriteRenderer.sprite = _eyeSprites[2];
+        _mouseSpriteRenderer.sprite = _mouseSprites[0];
     }
     public void StupidSprite() {
         if(!ResetSprite()){ return; }
-        _eyeSprites[3]?.SetActive(true);
-        _mouseSprites[3]?.SetActive(true);
+        _eyeSpriteRenderer.sprite = _eyeSprites[3];
+        _mouseSpriteRenderer.sprite = _mouseSprites[3];
     }
 
     /// <summary>
@@ -80,15 +87,12 @@ public class PlayerAnimation : MonoBehaviour
     float _moveRange = 2.5f;
     float _rotateDuration = 1f;
     float _flipDuration = 0.5f;
-    Vector3 _defaltSacale = Vector3.zero;
+    
     bool _isAnimation = true;
     CancellationTokenSource cts;
     CancellationToken token;
     public Vector3 randomPosition;
-    private void Start()
-    {
-        _defaltSacale = transform.localScale;
-    }
+
     private async void MoveAnimation()
     {
         while (_isAnimation)

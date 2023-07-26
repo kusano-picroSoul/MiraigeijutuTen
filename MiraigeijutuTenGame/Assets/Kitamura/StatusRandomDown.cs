@@ -7,6 +7,7 @@ using UnityEngine.TextCore.Text;
 /// </summary>
 public class StatusRandomDown : MonoBehaviour
 {
+    [SerializeField] int DownNum = 5;
     float timer;
     private void Update()
     {
@@ -18,15 +19,15 @@ public class StatusRandomDown : MonoBehaviour
                 int random = Random.Range(0, 2);
                 if (random == 0)
                 {
-                    charctor.Smart -= 5;
+                    charctor.Smart -= DownNum;
                 }
                 else if (random == 1)
                 {
-                    charctor.Happy -= 5;
+                    charctor.Happy -= DownNum;
                 }
                 else if (random == 2)
                 {
-                    charctor.Hungry -= 5;
+                    charctor.Hungry -= DownNum;
                 }
             }
             timer = 0;
