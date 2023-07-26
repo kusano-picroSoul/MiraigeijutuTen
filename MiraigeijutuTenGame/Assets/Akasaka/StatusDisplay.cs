@@ -13,6 +13,7 @@ public class StatusDisplay : MonoBehaviour
     Slider _happyBar;
     Slider _smartBar;
     Slider _familiarityBar;
+    GameObject _StatusBG;
     //[SerializeField] Slider _helthBar;
     PlayerStatus _status;
     // Start is called before the first frame update
@@ -24,6 +25,7 @@ public class StatusDisplay : MonoBehaviour
         _happyBar = GameObject.Find("StatusWindow/HappyBar").GetComponent<Slider>();
         _smartBar = GameObject.Find("StatusWindow/SmartBar").GetComponent<Slider>();
         _familiarityBar = GameObject.Find("StatusWindow/FamiliarityBar").GetComponent<Slider>();
+        _StatusBG = GameObject.Find("StatusBG");
     }
 
     // Update is called once per frame
@@ -40,7 +42,10 @@ public class StatusDisplay : MonoBehaviour
         _smartBar.value = _status.Smart;
         _familiarityBar.value = _status.Familiarity;
         Vector2 posi = transform.position;
-        GameObject.Find("StatusWindow").transform.position = new Vector2(posi.x + 3.3f, posi.y);
+        if (posi.x < 0)
+            GameObject.Find("StatusWindow").transform.position = new Vector2(posi.x + 3.3f, posi.y);
+        else
+            GameObject.Find("StatusWindow").transform.position = new Vector2(posi.x - 0.7f, posi.y);
         Debug.Log("�G����");
         if (_active == false)
         {
@@ -49,6 +54,7 @@ public class StatusDisplay : MonoBehaviour
             _happyBar.gameObject.SetActive(true);
             _smartBar.gameObject.SetActive(true);
             _familiarityBar.gameObject.SetActive(true);
+            _StatusBG.SetActive(true);
             //_helthBar.gameObject.SetActive(true);
             _active = true;
         }
@@ -62,6 +68,7 @@ public class StatusDisplay : MonoBehaviour
             _happyBar.gameObject.SetActive(false);
             _smartBar.gameObject.SetActive(false);
             _familiarityBar.gameObject.SetActive(false);
+            _StatusBG.SetActive(false);
             // _helthBar.gameObject.SetActive( false);
             _active = false;
         }
