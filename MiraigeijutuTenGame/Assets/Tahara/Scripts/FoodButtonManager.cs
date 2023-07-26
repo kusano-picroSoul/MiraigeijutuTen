@@ -33,7 +33,7 @@ public class FoodButtonManager : MonoBehaviour
     //�{�^���������ꂽ���Ƃ̏���
     public void ButtonColor()
     {
-        if (_addHeart._heart > 50 && _timer == 0)
+        if (_addHeart._heart >= 50 && _timer == 0)
         {
             _riceButton[0].interactable = true;
             _riceButton[1].interactable = true;
@@ -45,7 +45,7 @@ public class FoodButtonManager : MonoBehaviour
             _riceButton[1].interactable = false;
             _riceButton[2].interactable = false;
         }
-        if (_addHeart._heart > 150 && _timer == 0)
+        if (_addHeart._heart >= 150 && _timer == 0)
         {
             _riceButton[3].interactable = true;
             _riceButton[4].interactable = true;
@@ -57,7 +57,7 @@ public class FoodButtonManager : MonoBehaviour
             _riceButton[4].interactable = false;
             _riceButton[5].interactable = false;
         }
-        if (_addHeart._heart > 300 && _timer == 0)
+        if (_addHeart._heart >= 300 && _timer == 0)
         {
             _riceButton[6].interactable = true;
             _riceButton[7].interactable = true;
@@ -94,7 +94,11 @@ public class FoodButtonManager : MonoBehaviour
         Destroy(rice_obj, 5f);
         foreach (var player in HomeCharactorList)
         {
-            player.Hungry += _small;
+            if (player.Hungry < 1000)
+            {
+                player.Hungry += _small;
+                player.Familiarity += _small;
+            }
         }
         _addHeart._heart -= 50;//�n�[�g��������L�ڂ͂��Ă��Ȃ��̂ŗv����
         HomeCharactorsFoodAnimationControll(ricePoint, 0);
@@ -105,7 +109,11 @@ public class FoodButtonManager : MonoBehaviour
         Destroy(rice_obj, 5f);
         foreach (var player in HomeCharactorList)
         {
-            if (player.Hungry < 1000) player.Happy += _small;
+            if (player.Hungry < 1000)
+            {
+                player.Happy += _small;
+                player.Familiarity += _small;
+            }
             Debug.Log(player.Happy);
         }
         _addHeart._heart -= 50;
@@ -118,7 +126,11 @@ public class FoodButtonManager : MonoBehaviour
         //���M�{�^���F�������������@�n�[�g����
         foreach (var player in HomeCharactorList)
         {
-            if (player.Happy > 0) player.Familiarity += _medium;
+            if (player.Happy > 0)
+            {
+                player.Smart += _medium;
+                player.Familiarity += _small;
+            }
         }
         _addHeart._heart -= 50;
         HomeCharactorsFoodAnimationControll(ricePoint, 1);
@@ -134,9 +146,10 @@ public class FoodButtonManager : MonoBehaviour
             {
                 player.Hungry += _medium;
                 player.Happy += _small;
+                player.Familiarity += _medium;
             }
         }
-        _addHeart._heart -= 50;
+        _addHeart._heart -= 150;
         HomeCharactorsFoodAnimationControll(ricePoint, 0);
     }
     public void IceButtonUnlock()
@@ -149,10 +162,11 @@ public class FoodButtonManager : MonoBehaviour
             {
                 player.Happy += _medium;
                 player.Hungry += _small;
+                player.Familiarity += _medium;
             }
         }
         //�������񁪒��@���Ȃ������@�n�[�g����
-        _addHeart._heart -= 50;
+        _addHeart._heart -= 150;
         HomeCharactorsFoodAnimationControll(ricePoint, 0);
 
     }
@@ -165,11 +179,12 @@ public class FoodButtonManager : MonoBehaviour
         {
             if (player.Happy > 0)
             {
-                player.Familiarity += _medium;
+                player.Smart += _medium;
                 player.Happy -= _small;
+                player.Familiarity += _medium;
             }
         }
-        _addHeart._heart -= 50;
+        _addHeart._heart -= 150;
         HomeCharactorsFoodAnimationControll(ricePoint, 1);
     }
     public void KathuCurryButtonUnlock()
@@ -182,10 +197,11 @@ public class FoodButtonManager : MonoBehaviour
             {
                 player.Hungry += _large;
                 player.Happy += _medium;
+                player.Familiarity += _large;
             }
         }
         //���Ȃ�����@�������񁪒��@�n�[�g����
-        _addHeart._heart -= 10000;
+        _addHeart._heart -= 300;
         HomeCharactorsFoodAnimationControll(ricePoint, 0);
     }
     public void CakeButtonUnlock()
@@ -198,10 +214,11 @@ public class FoodButtonManager : MonoBehaviour
             {
                 player.Happy += _large;
                 player.Hungry += _medium;
+                player.Familiarity += _large;
             }
         }
         //�������񁪑�@���Ȃ������@�n�[�g����
-        _addHeart._heart -= 10000;
+        _addHeart._heart -= 300;
         HomeCharactorsFoodAnimationControll(ricePoint, 0);
     }
     public void NutoritionFoodButtonUnlock()
@@ -212,11 +229,12 @@ public class FoodButtonManager : MonoBehaviour
         {
             if (player.Happy > 0)
             {
-                player.Familiarity += _large;
+                player.Smart += _large;
                 player.Happy -= _small;
+                player.Familiarity += _large;
             }
         }
-        //������������@�������񁫏��@�n�[�g����
+        _addHeart._heart -= 300;
         HomeCharactorsFoodAnimationControll(ricePoint, 1);
     }
 }

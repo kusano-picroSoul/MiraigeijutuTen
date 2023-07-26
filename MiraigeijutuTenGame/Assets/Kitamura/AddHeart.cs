@@ -13,7 +13,7 @@ public class AddHeart : MonoBehaviour
     public float _heart = 50;
 
     /// <summary>0.1�b�Ԃő�����n�[�g�̐�</summary>
-    public int _addHearts;
+    [SerializeField] public int _addHearts;
 
     float _timer;
 
@@ -65,7 +65,7 @@ public class AddHeart : MonoBehaviour
                 * _normalConditionPlayerCount
 
                 //�~1 + (��ɂ���L�����̃X�e�[�^�X�̍��v�l/100)
-                * ((_hungryTotalValue + _happyTotalValue + _smartTotalValue + _familiarityTotalValue) / 750)
+                * ((_hungryTotalValue + _happyTotalValue + _smartTotalValue + _familiarityTotalValue + 1) / 750)
 
                 //�~1 + (�����ȃp���[���x��/100)
                 * _heartShop._friendPowerLevel;
@@ -74,8 +74,6 @@ public class AddHeart : MonoBehaviour
 
             //�n�[�g�̑���+=0.1�b�Ԃő�����n�[�g�̗�
             _heart += _addHearts;
-            int IntHeart = (int)_heart;
-            _heartUI.text = IntHeart.ToString();
 
             //���l�̏�����
             _normalConditionPlayerCount = 0;
@@ -87,6 +85,8 @@ public class AddHeart : MonoBehaviour
             //�^�C�}�[�̏�����
             _timer = 0;
         }
+        int IntHeart = (int)_heart;
+        _heartUI.text = IntHeart.ToString();
     }
     /// <summary>count��1.(int count)�ŕԂ� </summary>
     /// <param name="count"></param>
