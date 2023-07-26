@@ -3,39 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 /// <summary>
-/// 0.1•b‚²‚Æ‚ÉuÀ‘•(‰ğ•ú)‚³‚ê‚Ä‚¢‚éƒLƒƒƒ‰”*ê‚Éo‚Ä‚¢‚éƒLƒƒƒ‰*ãJƒpƒ[ƒŒƒxƒ‹v‚Åƒn[ƒg‚ğ‘‚â‚·
+/// 0.1ï¿½bï¿½ï¿½ï¿½Æ‚Éuï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½)ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*ï¿½ï¿½Éoï¿½Ä‚ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½*ï¿½Jï¿½pï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½xï¿½ï¿½ï¿½vï¿½Åƒnï¿½[ï¿½gï¿½ğ‘‚â‚·
 /// </summary>
 public class AddHeart : MonoBehaviour
 {
     [SerializeField] Text _heartUI;
     [SerializeField] HeartShop _heartShop;
-    /// <summary> ƒn[ƒg‚Ì‘” </summary>
+    /// <summary> ï¿½nï¿½[ï¿½gï¿½Ì‘ï¿½ï¿½ï¿½ </summary>
     public float _heart = 50;
 
-    /// <summary>0.1•bŠÔ‚Å‘‚¦‚éƒn[ƒg‚Ì”</summary>
-    public float _addHearts;
+    /// <summary>0.1ï¿½bï¿½Ô‚Å‘ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½[ï¿½gï¿½Ìï¿½</summary>
+    public int _addHearts;
 
     float _timer;
+
+    //0.1ï¿½bï¿½Ô‚Éˆï¿½ñ‘‚â‚·
+    [SerializeField] float _addHeartTime = 0.1f;
     
-    //0.1•bŠÔ‚Éˆê‰ñ‘‚â‚·
-    float _addHeartTime = 0.1f;
-    
-    //ê‚É‚¢‚éƒRƒ“ƒfƒBƒVƒ‡ƒ“‚ªƒm[ƒ}ƒ‹‚ÈƒLƒƒƒ‰‚Ì”
+    //ï¿½ï¿½É‚ï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½fï¿½Bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mï¿½[ï¿½}ï¿½ï¿½ï¿½ÈƒLï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½
     int _normalConditionPlayerCount = 0;
 
-    //ê‚É‚¢‚éƒRƒ“ƒfƒBƒVƒ‡ƒ“‚ªƒnƒbƒs[‚ÈƒLƒƒƒ‰‚Ì”
+    //ï¿½ï¿½É‚ï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½fï¿½Bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½bï¿½sï¿½[ï¿½ÈƒLï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½
     int _happyConditionPlayerCount = 0;
 
-    //Hungry‚Ì‡Œv’l
+    //Hungryï¿½Ìï¿½ï¿½vï¿½l
     int _hungryTotalValue;
     
-    //Happy‚Ì‡Œv’l
+    //Happyï¿½Ìï¿½ï¿½vï¿½l
     int _happyTotalValue;
     
-    //Smart‚Ì‡Œv’l
+    //Smartï¿½Ìï¿½ï¿½vï¿½l
     int _smartTotalValue;
     
-    //Familiarity‚Ì‡Œv’l
+    //Familiarityï¿½Ìï¿½ï¿½vï¿½l
     int _familiarityTotalValue;
 
     void Update()
@@ -45,16 +45,12 @@ public class AddHeart : MonoBehaviour
         {
             foreach (var charctor in LevelManager.HomeCharactorList)
             {
-                //_normalConditionPlayerCount‚ÉAê‚É‚¢‚éƒRƒ“ƒfƒBƒVƒ‡ƒ“‚ªƒm[ƒ}ƒ‹‚ÈƒLƒƒƒ‰‚Ì”‚ğ“ü‚ê‚é
+                //_normalConditionPlayerCountï¿½ÉAï¿½ï¿½É‚ï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½fï¿½Bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mï¿½[ï¿½}ï¿½ï¿½ï¿½ÈƒLï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 if (charctor.PlayerCondition.Value == Condition.Normal)
                 {
                     _normalConditionPlayerCount++;
                 }
-                if (charctor.PlayerCondition.Value == Condition.Happy)
-                {
-                    _happyConditionPlayerCount++;
-                }
-                //ê‚É‚¢‚éƒLƒƒƒ‰‚ÌƒXƒe[ƒ^ƒX‚Ì‡Œv’l‚ğ“ü‚ê‚é
+                //ï¿½ï¿½É‚ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ÌƒXï¿½eï¿½[ï¿½^ï¿½Xï¿½Ìï¿½ï¿½vï¿½lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 _hungryTotalValue += charctor.Hungry;
                 _happyTotalValue += charctor.Happy;
                 _smartTotalValue += charctor.Smart;
@@ -62,40 +58,37 @@ public class AddHeart : MonoBehaviour
             }
 
             _addHearts =
-                //1 + (À‘•ƒLƒƒƒ‰‚Ì”/10)
-                meg(LevelManager.AllCharactorList.Count)
+                //1 + (ï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½/10)
+                (LevelManager.AllCharactorList.Count / 5)
 
-                //~1 + (ê‚É‚¢‚éƒRƒ“ƒfƒBƒVƒ‡ƒ“‚ªƒm[ƒ}ƒ‹‚ÈƒLƒƒƒ‰‚Ì”/10)
-                * meg(_normalConditionPlayerCount)
+                //ï¿½~1 + (ï¿½ï¿½É‚ï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½fï¿½Bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½mï¿½[ï¿½}ï¿½ï¿½ï¿½ÈƒLï¿½ï¿½ï¿½ï¿½ï¿½Ìï¿½/10)
+                * _normalConditionPlayerCount
 
-                //~1 + (ê‚É‚¢‚éƒRƒ“ƒfƒBƒVƒ‡ƒ“‚ªƒnƒbƒs[‚ÈƒLƒƒƒ‰‚Ì”/10)
-                * meg(_happyConditionPlayerCount)
+                //ï¿½~1 + (ï¿½ï¿½É‚ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ÌƒXï¿½eï¿½[ï¿½^ï¿½Xï¿½Ìï¿½ï¿½vï¿½l/100)
+                * ((_hungryTotalValue + _happyTotalValue + _smartTotalValue + _familiarityTotalValue) / 750)
 
-                //~1 + (ê‚É‚¢‚éƒLƒƒƒ‰‚ÌƒXƒe[ƒ^ƒX‚Ì‡Œv’l/100)
-                * meg01(_hungryTotalValue + _happyTotalValue + _smartTotalValue + _familiarityTotalValue)
+                //ï¿½~1 + (ï¿½ï¿½ï¿½ï¿½ï¿½Èƒpï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½xï¿½ï¿½/100)
+                * _heartShop._friendPowerLevel;
 
-                //~1 + (‚«‚¸‚Èƒpƒ[ƒŒƒxƒ‹/100)
-                * meg01(_heartShop._friendPowerLevel);
+            //ï¿½ï¿½@_addHearts = 1.6 * 1.0 * 1.5 * 1.90 * 1.01 
 
-            //—á@_addHearts = 1.6 * 1.0 * 1.5 * 1.90 * 1.01 
-
-            //ƒn[ƒg‚Ì‘—Ê+=0.1•bŠÔ‚Å‘‚¦‚éƒn[ƒg‚Ì—Ê
+            //ï¿½nï¿½[ï¿½gï¿½Ì‘ï¿½ï¿½ï¿½+=0.1ï¿½bï¿½Ô‚Å‘ï¿½ï¿½ï¿½ï¿½ï¿½nï¿½[ï¿½gï¿½Ì—ï¿½
             _heart += _addHearts;
             int IntHeart = (int)_heart;
             _heartUI.text = IntHeart.ToString();
 
-            //”’l‚Ì‰Šú‰»
+            //ï¿½ï¿½ï¿½lï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
             _normalConditionPlayerCount = 0;
             _hungryTotalValue = 0;
             _happyTotalValue = 0;
             _smartTotalValue = 0;
             _familiarityTotalValue = 0;
 
-            //ƒ^ƒCƒ}[‚Ì‰Šú‰»
+            //ï¿½^ï¿½Cï¿½}ï¿½[ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
             _timer = 0;
         }
     }
-    /// <summary>count‚ğ1.(int count)‚Å•Ô‚· </summary>
+    /// <summary>countï¿½ï¿½1.(int count)ï¿½Å•Ô‚ï¿½ </summary>
     /// <param name="count"></param>
     /// <returns></returns>
     float meg(int count)

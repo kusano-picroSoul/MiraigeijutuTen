@@ -11,6 +11,7 @@ public class StrokingController : MonoBehaviour
     HeartShop _heartShop;
     AddHeart _add;
     PlayerStatus _status;
+    [SerializeField] int _timer;
     private void Start()
     {
         _jump = GetComponent<Animator>();
@@ -22,13 +23,20 @@ public class StrokingController : MonoBehaviour
     private void OnMouseDrag()
     {
         _playerAnimation.HappySprite();
+        _timer++;
+        if (_timer % 30 == 0)
+        {
+            _status.Happy += 1;
+            _status.Familiarity += 1;
+            _add._heart += _heartShop._strokingAddHeart;
+        }
     }
     private void OnMouseUp()
     {
         _playerAnimation.NormalSprite();
+        _status.PlayerConditionUpdate();
         _jump.Play("JumpMotion");
-        _status.Happy += 2;
-        _add._heart += _heartShop._strokingAddHeart;
+        _timer = 0;
     }
 
 }

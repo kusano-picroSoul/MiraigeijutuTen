@@ -1611,6 +1611,7 @@ MonoBehaviour:
   _heartShop: {fileID: 227503231}
   _heart: 0
   _addHearts: 0
+  _addHeartTime: 1
 --- !u!1 &422407974
 GameObject:
   m_ObjectHideFlags: 0

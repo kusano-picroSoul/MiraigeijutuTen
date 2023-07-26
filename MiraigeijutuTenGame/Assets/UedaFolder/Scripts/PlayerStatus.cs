@@ -11,13 +11,13 @@ public class Status
     public ReactiveProperty<int> _happy = new(50);
     public ReactiveProperty<int> _smart = new(50);
     public ReactiveProperty<int> _helth = new(50);
-    public ReactiveProperty<int> _familiarity = new(50);
+    public ReactiveProperty<int> _familiarity = new(0);
 }
 public class PlayerStatus :MonoBehaviour
 {
     int MaxStatusValue = 1000;
     public Status status = new();
-    //ƒNƒ‰ƒX‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»‚µ‚½‚à‚Ì‚ÍŒŸ’m‚·‚é‚±‚Æ‚ªo—ˆ‚È‚¢B
+    //ï¿½Nï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ÍŒï¿½ï¿½mï¿½ï¿½ï¿½é‚±ï¿½Æ‚ï¿½ï¿½oï¿½ï¿½ï¿½È‚ï¿½ï¿½B
     public ReactiveProperty<Condition> PlayerCondition = new ReactiveProperty<Condition>(Condition.Normal);
     public int Hungry
     {
@@ -48,10 +48,10 @@ public class PlayerStatus :MonoBehaviour
         get { return status._familiarity.Value; }
     }
 
-    ////ƒvƒŒƒCƒ„[ƒRƒ“ƒfƒBƒVƒ‡ƒ“‚ÌŠÇ—
+    ////ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Rï¿½ï¿½ï¿½fï¿½Bï¿½Vï¿½ï¿½ï¿½ï¿½ï¿½ÌŠÇ—ï¿½
     public void PlayerConditionUpdate()
     {
-        //Debug.Log("ŒÄ‚Î‚ê‚½");
+        //Debug.Log("ï¿½Ä‚Î‚ê‚½");
         if (Health <= 0 )
         {
             PlayerCondition.Value = Condition.Tired;
