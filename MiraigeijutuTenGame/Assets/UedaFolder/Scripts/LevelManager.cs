@@ -74,8 +74,9 @@ public class LevelManager : MonoBehaviour
     private List<int> randomIndex = new();
     public void SelectRandomPlayer()
     {
-        if(HomeCharactorList.Count > 0) 
-        {
+        //初期化
+        if (!(HomeCharactorList == null)) 
+        {  
             ResetHomeCharactors();
         }
         if(AllCharactorList.Count <= MAX_HOME_CHARACTOR)
@@ -87,20 +88,17 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
+            for (int j = 0; j < AllCharactorList.Count; j++)
+            {
+                randomIndex.Add(j);
+            }
             for (int i = 0; i < MAX_HOME_CHARACTOR; i++)
             {
-                if(randomIndex.Count == 0)
-                {
-                    for (int j = 0; j < AllCharactorList.Count; j++)
-                    {
-                        randomIndex.Add(j);
-                    }
-                }
                 int rand = UnityEngine.Random.Range(0, randomIndex.Count);
-                //Debug.Log(randomIndex[rand]);
                 HomeCharactorList.Add(AllCharactorList[randomIndex[rand]]);
                 randomIndex.Remove(randomIndex[rand]);
-            }  
+            }
+            randomIndex.Clear();
         }
         ActiveHomeCharactors();
     }
@@ -111,13 +109,19 @@ public class LevelManager : MonoBehaviour
         {
             HomeCharactorList[i].transform.position = new Vector3(i + 3 , 0, 0);
             HomeCharactorList[i].gameObject.SetActive(true);
+            
         }
         SetCharactorSortingLayer();
+        for (int i = 0; i < HomeCharactorList.Count; i++)
+        {
+            HomeCharactorList[i].GetComponent<PlayerAnimation>().ActiveAnimation();
+        }      
     }
     void ResetHomeCharactors()
     {
         foreach (var obj in HomeCharactorList)
         {
+            obj.GetComponent<PlayerAnimation>().StopAmnimation();
             obj.gameObject.SetActive(false);
         }
         SortOrderList.Clear();

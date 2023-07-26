@@ -88,10 +88,6 @@ public class PlayerAnimation : MonoBehaviour
     private void Start()
     {
         _defaltSacale = transform.localScale;
-        cts = new CancellationTokenSource();
-        token = cts.Token;
-        //token = this.GetCancellationTokenOnDestroy();
-        MoveAnimation();
     }
     private async void MoveAnimation()
     {
@@ -186,8 +182,6 @@ public class PlayerAnimation : MonoBehaviour
     }
     public void StopAmnimation()
     {
-       
-        
         transform.DOKill();
         cts.Cancel();
         FixFlipAnimation();
@@ -198,6 +192,7 @@ public class PlayerAnimation : MonoBehaviour
     {
         cts = new CancellationTokenSource();
         token = cts.Token;
+        FixFlipAnimation();
         //token = this.GetCancellationTokenOnDestroy();
         _isAnimation = true;
         MoveAnimation();
