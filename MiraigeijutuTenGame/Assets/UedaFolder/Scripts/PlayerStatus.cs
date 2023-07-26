@@ -68,7 +68,7 @@ public class PlayerStatus :MonoBehaviour
         {
             PlayerCondition.Value = Condition.Angry;
         }
-        else if (Happy >= 80)
+        else if (Happy >= 1000)
         {
             PlayerCondition.Value = Condition.Happy;
         }
