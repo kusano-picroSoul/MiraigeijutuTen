@@ -21,17 +21,23 @@ public class PlayerAnimation : MonoBehaviour
     SpriteRenderer _eyeSpriteRenderer;
     [SerializeField]
     SpriteRenderer _mouseSpriteRenderer;
+    [SerializeField]
+    SpriteRenderer _effectSpriteRenderer;
     [Tooltip("�W���̖�0,�Ί�̖�:1,������:2,���قȖ�:3")]
     [SerializeField]
     Sprite[] _eyeSprites;
     [Tooltip("�W���̌�0,�J������:1,�{������:2,���قȌ�:3")]
     [SerializeField]
     Sprite[] _mouseSprites;
+    Sprite[] _effectSprites = new Sprite[3];
     //���ׂĂ̕\������Z�b�g����B
     Vector3 _defaltSacale = Vector3.zero;
     private void Start()
     {
         _defaltSacale = transform.localScale;
+        _effectSprites[0] = Resources.Load<Sprite>("PlayerIcon/doyo") as Sprite;
+        _effectSprites[1] = Resources.Load<Sprite>("PlayerIcon/gabi") as Sprite;
+        _effectSprites[2] = Resources.Load<Sprite>("PlayerIcon/pun") as Sprite;
     }
     private bool ResetSprite()
     {
@@ -48,12 +54,14 @@ public class PlayerAnimation : MonoBehaviour
     public void NormalSprite()
     {
         if (!ResetSprite()) { return; }
+        _effectSpriteRenderer.sprite = null;
         _eyeSpriteRenderer.sprite = _eyeSprites[0];
         _mouseSpriteRenderer.sprite = _mouseSprites[0];
     }
     public void AngrySprite()
     {
         if(!ResetSprite()){ return; }
+        _effectSpriteRenderer.sprite = _effectSprites[2];
         _eyeSpriteRenderer.sprite = _eyeSprites[0];
         _mouseSpriteRenderer.sprite = _mouseSprites[2];
     }
@@ -66,6 +74,7 @@ public class PlayerAnimation : MonoBehaviour
     public void HungrySprite()
     {
         if(!ResetSprite()){ return; }
+        _effectSpriteRenderer.sprite = _effectSprites[1];
         _eyeSpriteRenderer.sprite = _eyeSprites[2];
         _mouseSpriteRenderer.sprite = _mouseSprites[1];
     }
@@ -77,6 +86,7 @@ public class PlayerAnimation : MonoBehaviour
     }
     public void StupidSprite() {
         if(!ResetSprite()){ return; }
+        _effectSpriteRenderer.sprite = _effectSprites[0];
         _eyeSpriteRenderer.sprite = _eyeSprites[3];
         _mouseSpriteRenderer.sprite = _mouseSprites[3];
     }
