@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 /// <summary>
-/// ê‚É‚¢‚éƒLƒƒƒ‰‚ÌƒXƒe[ƒ^ƒX‚ğ30•b‚²‚Æ‚Éƒ‰ƒ“ƒ_ƒ€‚É5Œ¸‚ç‚·ƒRƒ“ƒ|[ƒlƒ“ƒg
+/// ï¿½ï¿½É‚ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ÌƒXï¿½eï¿½[ï¿½^ï¿½Xï¿½ï¿½30ï¿½bï¿½ï¿½ï¿½Æ‚Éƒï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ç‚·ï¿½Rï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½g
 /// </summary>
 public class StatusRandomDown : MonoBehaviour
 {

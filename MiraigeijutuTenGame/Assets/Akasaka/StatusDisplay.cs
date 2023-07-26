@@ -29,18 +29,21 @@ public class StatusDisplay : MonoBehaviour
     }
 
     // Update is called once per frame
-   
-    public void OnMouseDown()
+
+    private void OnMouseDrag()
     {
-       
-        _text.text = "おなか　 :" + _status.Hungry + " \n"
+        _text.text = "おなか　 :" + _status.Hungry + "\n"
                    + "ごきげん :" + _status.Happy + "\n"
-                   + "かしこさ :" + _status.Smart +"\n"
+                   + "かしこさ :" + _status.Smart + "\n"
                    + "なつき度 :" + _status.Familiarity;
         _hungryBar.value = _status.Hungry;
         _happyBar.value = _status.Happy;
         _smartBar.value = _status.Smart;
         _familiarityBar.value = _status.Familiarity;
+    }
+
+    public void OnMouseDown()
+    {
         Vector2 posi = transform.position;
         if (posi.x < 0)
             GameObject.Find("StatusWindow").transform.position = new Vector2(posi.x + 3.3f, posi.y);
