@@ -21,7 +21,7 @@ public class HeartShop : MonoBehaviour
     public int _lovePowerLevel = 1;
 
     //�R�X�g�{���i���j
-    int _level = 500;
+    int _level = 50;
 
     public int _strokingAddHeart = 10000;
 
@@ -29,36 +29,36 @@ public class HeartShop : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         _heartCost0.text = (_level * _friendPowerLevel).ToString();
-        _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString("F0") + "/s";
+        _addHeartSeconds.text = (_addHeart._addHearts).ToString("F0") + "/s";
         _heartCost1.text = (_level * _lovePowerLevel).ToString();
         _touchAddHeart.text = (_strokingAddHeart).ToString();
     }
 
     void FixedUpdate()
     {
-        if (1000000 < _addHeart._addHearts * 10)
+        if (1000000 < _addHeart._addHearts)
         {
-            int kilo = (int)(_addHeart._addHearts * 10) / 1000000;
+            int kilo = (int)(_addHeart._addHearts) / 1000000;
             _addHeartSeconds.text = kilo + "m/s";
         }
-        else if (1000 < _addHeart._addHearts * 10)
+        else if (1000 < _addHeart._addHearts)
         {
-            int kilo = (int)(_addHeart._addHearts * 10) / 1000;
+            int kilo = (int)(_addHeart._addHearts) / 1000;
             _addHeartSeconds.text = kilo + "k/s";
         }
         else
         {
-            _addHeartSeconds.text = ((int)(_addHeart._addHearts * 10)).ToString() + "/s";
+            _addHeartSeconds.text = ((int)(_addHeart._addHearts)).ToString() + "/s";
         }
         foreach (var button in _shopButton)
         {
             button.interactable = false;
         }
-        if (_addHeart._heart > _level * _friendPowerLevel)
+        if (_addHeart._heart >= _level * _friendPowerLevel)
         {
             _shopButton[0].interactable = true;
         }
-        if (_addHeart._heart > _level * _lovePowerLevel)
+        if (_addHeart._heart >= _level * _lovePowerLevel)
         {
             _shopButton[1].interactable = true;
         }
@@ -105,7 +105,7 @@ public class HeartShop : MonoBehaviour
             {
                 _addHeart._heart -= cost;
                 _lovePowerLevel += 1;
-                _strokingAddHeart = _lovePowerLevel * 100;
+                _strokingAddHeart = _lovePowerLevel;
                 if (1000000 < _level * _lovePowerLevel)
                 {
                     int kilo = (int)(_level * _lovePowerLevel) / 1000000;
@@ -120,19 +120,19 @@ public class HeartShop : MonoBehaviour
                 {
                     _heartCost1.text = (_level * _lovePowerLevel).ToString();
                 }
-                if (1000000 < _level * _strokingAddHeart)
+                if (1000000 < _strokingAddHeart)
                 {
-                    int kilo = (int)(_level * _strokingAddHeart) / 1000000;
+                    int kilo = (int)_strokingAddHeart / 1000000;
                     _touchAddHeart.text = kilo + "m";
                 }
-                else if (1000 < _level * _strokingAddHeart)
+                else if (1000 < _strokingAddHeart)
                 {
-                    int kilo = (int)(_level * _strokingAddHeart) / 1000;
+                    int kilo = (int)_strokingAddHeart / 1000;
                     _touchAddHeart.text = kilo + "k";
                 }
                 else
                 {
-                    _touchAddHeart.text = (_level * _strokingAddHeart).ToString();
+                    _touchAddHeart.text = _strokingAddHeart.ToString();
                 }
             }
         }
