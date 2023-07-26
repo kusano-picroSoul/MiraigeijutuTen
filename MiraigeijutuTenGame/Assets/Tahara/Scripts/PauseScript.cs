@@ -2,29 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>ŠJ”­Òƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Ìˆ—‚ğ‚·‚éƒRƒ“ƒ|[ƒlƒ“ƒg/// </summary>
+/// <summary>ï¿½Jï¿½ï¿½ï¿½Òƒ{ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½ï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½ï¿½ï¿½|ï¿½[ï¿½lï¿½ï¿½ï¿½g/// </summary>
 public class PauseScript : MonoBehaviour
 {
-    //@ŠJ”­Ò•\¦‰æ–Ê‚ğŠJ‚­ƒ{ƒ^ƒ“
+    //ï¿½@ï¿½Jï¿½ï¿½ï¿½Ò•\ï¿½ï¿½ï¿½ï¿½Ê‚ï¿½ï¿½Jï¿½ï¿½ï¿½{ï¿½^ï¿½ï¿½
     [SerializeField] private GameObject _staffButton;
-    //@ƒQ[ƒ€‚É–ß‚éƒ{ƒ^ƒ“
+    //ï¿½@ï¿½Qï¿½[ï¿½ï¿½ï¿½É–ß‚ï¿½{ï¿½^ï¿½ï¿½
     [SerializeField] private GameObject _restartButton;
-    //@ŠJ”­Ò‚ğ•\¦‚·‚éƒpƒlƒ‹
+    //ï¿½@ï¿½Jï¿½ï¿½ï¿½Ò‚ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pï¿½lï¿½ï¿½
     [SerializeField] private GameObject _Panel;
 
-    /// <summary>ƒpƒlƒ‹‚ªON‚Ì/// </summary>
+    /// <summary>ï¿½pï¿½lï¿½ï¿½ï¿½ï¿½ONï¿½Ìï¿½/// </summary>
     public void StopGame()
     {
-        _staffButton.SetActive(false);
         _restartButton.SetActive(true);
         _Panel.SetActive(true);
     }
-    /// <summary>ƒpƒlƒ‹‚ªOFF‚Ì/// </summary>
+    /// <summary>ï¿½pï¿½lï¿½ï¿½ï¿½ï¿½OFFï¿½Ìï¿½/// </summary>
     public void ReStartGame()
     {
-        _staffButton.SetActive(true);
         _restartButton.SetActive(false);
         _Panel.SetActive(false);
-        Time.timeScale = 1.0f;
     }
 }

@@ -35,7 +35,7 @@ public class FoodButtonManager : MonoBehaviour
     {
         foreach (var button in _riceButton)
         { 
-                button.interactable = false;
+            button.interactable = false;
         }
         if (_addHeart._heart > 50 && _timer == 0)
         {
