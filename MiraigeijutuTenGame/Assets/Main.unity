@@ -526,6 +526,9 @@ MonoBehaviour:
   _touchAddHeart: {fileID: 774793709}
   _heartCost0: {fileID: 504307624}
   _heartCost1: {fileID: 1562341268}
+  _shopButton:
+  - {fileID: 657569385}
+  - {fileID: 1339364894}
   _friendPowerLevel: 1
   _lovePowerLevel: 1
   _strokingAddHeart: 1

@@ -13,6 +13,8 @@ public class HeartShop : MonoBehaviour
     [SerializeField] Text _heartCost0;
     [SerializeField] Text _heartCost1;
 
+    [SerializeField] Button[] _shopButton;
+
     /// <summary> �����ȃp���[�̃��x���@���b�Ԃ����ȃp���[���x���~�P�O�̃n�[�g���Q�b�g </summary>
     public int _friendPowerLevel = 1;
     /// <summary> ���܂��I�[���̃��x���@����ɂ���v���C���[���^�b�`����Ƃ��܂��I�[�����x���ɉ����ăn�[�g���Q�b�g </summary>
@@ -31,7 +33,7 @@ public class HeartShop : MonoBehaviour
         _touchAddHeart.text = (_strokingAddHeart).ToString();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (1000000 < _addHeart._addHearts * 10)
         {
@@ -46,6 +48,18 @@ public class HeartShop : MonoBehaviour
         else
         {
             _addHeartSeconds.text = ((int)(_addHeart._addHearts * 10)).ToString() + "/s";
+        }
+        foreach (var button in _shopButton)
+        {
+            button.interactable = false;
+        }
+        if (_addHeart._heart > _level * _friendPowerLevel)
+        {
+            _shopButton[0].interactable = true;
+        }
+        if (_addHeart._heart > _level * _lovePowerLevel)
+        {
+            _shopButton[1].interactable = true;
         }
     }
     /// <summary> shop�̂����ȃp���[�{�^���ŌĂяo�� </summary>
