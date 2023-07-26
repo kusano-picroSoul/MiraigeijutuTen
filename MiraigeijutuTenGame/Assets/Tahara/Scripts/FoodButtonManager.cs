@@ -33,15 +33,17 @@ public class FoodButtonManager : MonoBehaviour
     //�{�^���������ꂽ���Ƃ̏���
     public void ButtonColor()
     {
-        foreach (var button in _riceButton)
-        { 
-                button.interactable = false;
-        }
         if (_addHeart._heart > 50 && _timer == 0)
         {
             _riceButton[0].interactable = true;
             _riceButton[1].interactable = true;
             _riceButton[2].interactable = true;
+        }
+        else
+        {
+            _riceButton[0].interactable = false;
+            _riceButton[1].interactable = false;
+            _riceButton[2].interactable = false;
         }
         if (_addHeart._heart > 150 && _timer == 0)
         {
@@ -49,11 +51,23 @@ public class FoodButtonManager : MonoBehaviour
             _riceButton[4].interactable = true;
             _riceButton[5].interactable = true;
         }
+        else
+        {
+            _riceButton[3].interactable = false;
+            _riceButton[4].interactable = false;
+            _riceButton[5].interactable = false;
+        }
         if (_addHeart._heart > 300 && _timer == 0)
         {
             _riceButton[6].interactable = true;
             _riceButton[7].interactable = true;
             _riceButton[8].interactable = true;
+        }
+        else
+        {
+            _riceButton[6].interactable = false;
+            _riceButton[7].interactable = false;
+            _riceButton[8].interactable = false;
         }
     }
     public void HomeCharactorsFoodAnimationControll(List<Transform> foodPoint, int mode)

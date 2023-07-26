@@ -97,9 +97,9 @@ public class PlayerAnimation : MonoBehaviour
     {
         while (_isAnimation)
         { 
-            await RandomWalk(token);
+            await RandomWalk(token).SuppressCancellationThrow();
             if (!_isAnimation) break;
-            await UniTask.Delay((int)Random.Range(3f, 10f) * 1000 ,cancellationToken: token); 
+            await UniTask.Delay((int)Random.Range(3f, 10f) * 1000 ,cancellationToken: token).SuppressCancellationThrow(); 
             //print("MoveAnimation");
         }
         Debug.Log("animationEND");
@@ -117,7 +117,7 @@ public class PlayerAnimation : MonoBehaviour
         
         WalkingAnimation(moveTime, animationRatio, token);
         await transform.DOMove(randomPosition, moveTime)
-            .ToUniTask(cancellationToken: token);
+            .ToUniTask(cancellationToken: token).SuppressCancellationThrow();
         return;
     }
     public void FlipAnimation(float positionX)
@@ -126,14 +126,16 @@ public class PlayerAnimation : MonoBehaviour
         {
             if (transform.localScale.x < 0)
             {
-                transform.DOScaleX(Mathf.Abs(transform.localScale.x), _flipDuration);
+                transform.DOScaleX(Mathf.Abs(transform.localScale.x), _flipDuration)
+                    .ToUniTask(cancellationToken: token).SuppressCancellationThrow();
             }
         }
         else
         {
             if(transform.localScale.x > 0)
             {
-                transform.DOScaleX(-Mathf.Abs(transform.localScale.x), _flipDuration);
+                transform.DOScaleX(-Mathf.Abs(transform.localScale.x), _flipDuration)
+                    .ToUniTask(cancellationToken: token).SuppressCancellationThrow();
             }
         }
     }
@@ -143,11 +145,13 @@ public class PlayerAnimation : MonoBehaviour
         {
             if (transform.localScale.x > 0)
             {
-                transform.DOScaleX(_defaltSacale.x, 0.1f);
+                transform.DOScaleX(_defaltSacale.x, 0.1f)
+                    .ToUniTask(cancellationToken: token).SuppressCancellationThrow();
             }
             if (transform.localScale.x < 0)
             {
-                transform.DOScaleX(- _defaltSacale.x, 0.1f);
+                transform.DOScaleX(- _defaltSacale.x, 0.1f)
+                    .ToUniTask(cancellationToken: token).SuppressCancellationThrow();
             }
         }
     }
@@ -182,13 +186,19 @@ public class PlayerAnimation : MonoBehaviour
     }
     public void StopAmnimation()
     {
+       
+        
         transform.DOKill();
+        cts.Cancel();
         FixFlipAnimation();
         transform.DOLocalRotate(new Vector3(0, 0, 0), _rotateDuration);
         _isAnimation = false;
     }
     public void ActiveAnimation()
     {
+        cts = new CancellationTokenSource();
+        token = cts.Token;
+        //token = this.GetCancellationTokenOnDestroy();
         _isAnimation = true;
         MoveAnimation();
     }
