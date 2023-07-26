@@ -27,6 +27,7 @@ public class HeartShop : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = 60;
         _heartCost0.text = (_level * _friendPowerLevel).ToString();
         _addHeartSeconds.text = (_addHeart._addHearts * 10).ToString("F0") + "/s";
         _heartCost1.text = (_level * _lovePowerLevel).ToString();
