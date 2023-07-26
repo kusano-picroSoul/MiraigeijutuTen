@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class StrokingController : MonoBehaviour
 {
     private PlayerAnimation _playerAnimation;
+    private PlayerPresenter _playerPresenter ;
     Animator _jump;
     HeartShop _heartShop;
     AddHeart _add;
@@ -16,6 +17,7 @@ public class StrokingController : MonoBehaviour
     {
         _jump = GetComponent<Animator>();
         _playerAnimation = GetComponent<PlayerAnimation>();
+        _playerPresenter = GetComponent<PlayerPresenter>();
         _heartShop = GameObject.Find("System").GetComponent<HeartShop>();
         _add = GameObject.Find("Canvas/Heart").GetComponent<AddHeart>();
         _status = GetComponent<PlayerStatus>();
@@ -23,6 +25,7 @@ public class StrokingController : MonoBehaviour
     private void OnMouseDrag()
     {
         _playerAnimation.HappySprite();
+        
         _timer++;
         if (_timer % 30 == 0)
         {
@@ -33,8 +36,7 @@ public class StrokingController : MonoBehaviour
     }
     private void OnMouseUp()
     {
-        _playerAnimation.NormalSprite();
-        _status.PlayerConditionUpdate();
+        _playerPresenter.PlayerConditionMoving(_status.PlayerCondition.Value);
         _jump.Play("JumpMotion");
         _timer = 0;
     }

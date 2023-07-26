@@ -247,16 +247,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd9ffc9f138544b43999594f1612518f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _eyeSpriteRenderer: {fileID: 0}
+  _mouseSpriteRenderer: {fileID: 0}
   _eyeSprites:
-  - {fileID: 1712515049861810769}
-  - {fileID: 3395102417126909729}
-  - {fileID: 680613174643192984}
-  - {fileID: 722109390002235082}
+  - {fileID: 0}
   _mouseSprites:
-  - {fileID: 4572701547538058325}
-  - {fileID: 6511018671107876872}
-  - {fileID: 5569013229025316635}
-  - {fileID: 3197833731485980692}
+  - {fileID: 0}
   randomPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &6572009295359516069
 MonoBehaviour:
