@@ -16,7 +16,7 @@ public class StatusRandomDown : MonoBehaviour
         {
             foreach (var charctor in LevelManager.HomeCharactorList)
             {
-                int random = Random.Range(0, 2);
+                int random = Random.Range(0, 3);
                 if (random == 0)
                 {
                     charctor.Smart -= DownNum;
