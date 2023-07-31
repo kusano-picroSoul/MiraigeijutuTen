@@ -25,7 +25,7 @@ public class FoodButtonManager : MonoBehaviour
     {
         
     }
-    private void Update()
+    private void FixedUpdate()
     {
         ButtonColor();
         if (_timer > 300) _timer = 0;
